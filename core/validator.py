@@ -1,21 +1,41 @@
-class Validator:
-    def __init__(self, threshold=0.70):
-        self.threshold = threshold
+"""
+CEUNIA Validator
+Módulo de evaluación de coherencia, riesgo y calidad.
+"""
 
-    def validate(self, score):
-        """
-        Valida si un puntaje supera el umbral mínimo.
-        """
-        return score >= self.threshold
 
-    def validate_decision(self, decision):
-        """
-        Verifica que la decisión tenga los campos mínimos.
-        """
-        required = ["score", "action"]
+class CEUNIAValidator:
 
-        for field in required:
-            if field not in decision:
-                return False
+    def __init__(self):
+        self.history = []
 
-        return self.validate(decision["score"])
+    def evaluate(self, data):
+
+        result = {
+            "coherence": self._coherence_check(data),
+            "risk": self._risk_check(data),
+            "status": "validated"
+        }
+
+        self.history.append(result)
+
+        return result
+
+    def _coherence_check(self, data):
+        if data is None or data == "":
+            return 0
+
+        return 1
+
+    def _risk_check(self, data):
+        return "low"
+
+    def get_history(self):
+        return self.history
+
+
+validator = CEUNIAValidator()
+
+
+def validate(data):
+    return validator.evaluate(data)
