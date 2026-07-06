@@ -1,35 +1,37 @@
 """
-CEUNIA Core Memory
-
-Version: 1.0
-Purpose:
-Stores system interactions for future adaptation and evolution.
+CEUNIA Memory
+Sistema básico de almacenamiento de estados, resultados y aprendizajes.
 """
 
-import json
-from datetime import datetime
 
 class CEUNIAMemory:
 
-def __init__(self):
-    self.store = []
+    def __init__(self):
+        self.records = []
 
-def add(self, input_text, output, validation):
-    """
-    Stores a single interaction.
-    """
-    record = {
-        "timestamp": datetime.utcnow().isoformat(),
-        "input": input_text,
-        "output": output,
-        "validation": validation
-    }
+    def store(self, data):
+        self.records.append(data)
+        return True
 
-    self.store.append(record)
-    return record
+    def retrieve_all(self):
+        return self.records
 
-def get_all(self):
-    return self.store
+    def last(self):
+        if len(self.records) == 0:
+            return None
 
-def get_last(self, n=5):
-    return self.store[-n:]
+        return self.records[-1]
+
+    def clear(self):
+        self.records = []
+
+
+memory = CEUNIAMemory()
+
+
+def save(data):
+    return memory.store(data)
+
+
+def get_memory():
+    return memory.retrieve_all()
