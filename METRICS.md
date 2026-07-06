@@ -7,9 +7,7 @@ CEUNIA does not evaluate intelligence only by performance, but by coherence, ada
 ---
 
 1. Coherence (C)
-
-Definition:
-Measure of consistency between memory, decisions, outputs, and system objectives.
+fix coherence metric definition
 
 Formalization:
 C = alignment(trajectory, decisions, memory, outcomes)
