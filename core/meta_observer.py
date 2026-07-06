@@ -1,55 +1,43 @@
 """
 CEUNIA Meta Observer
-
-Version: 1.0
-Purpose:
-Observes system behavior across time to detect drift, inconsistency and evolution patterns.
-This is the first layer of self-referential evaluation.
+Capa de observación del comportamiento del sistema.
 """
+
 
 class CEUNIAMetaObserver:
 
-def __init__(self):
-    self.drift_history = []
+    def __init__(self):
+        self.events = []
 
-def analyze_memory(self, memory_store):
-    """
-    Evaluates system-level behavior patterns.
-    """
-
-    if not memory_store:
-        return {
-            "status": "empty",
-            "drift": 0.0,
-            "coherence_trend": "stable"
+    def observe(self, state):
+        event = {
+            "state": state,
+            "type": "observation"
         }
 
-    validations = [
-        item.get("validation", {}).get("coherence", 0)
-        for item in memory_store
-    ]
+        self.events.append(event)
 
-    avg_coherence = sum(validations) / len(validations)
+        return event
 
-    # simple drift estimation
-    drift = max(validations) - min(validations)
+    def detect_change(self, previous, current):
 
-    if avg_coherence > 0.75:
-        trend = "stable"
-    elif avg_coherence > 0.5:
-        trend = "moderate"
-    else:
-        trend = "unstable"
+        if previous != current:
+            return {
+                "change_detected": True,
+                "previous": previous,
+                "current": current
+            }
 
-    report = {
-        "average_coherence": round(avg_coherence, 2),
-        "drift": round(drift, 2),
-        "trend": trend
-    }
+        return {
+            "change_detected": False
+        }
 
-    self.drift_history.append(report)
+    def history(self):
+        return self.events
 
-    return report
 
-def history(self):
-    return self.drift_history
+observer = CEUNIAMetaObserver()
+
+
+def observe(state):
+    return observer.observe(state)
