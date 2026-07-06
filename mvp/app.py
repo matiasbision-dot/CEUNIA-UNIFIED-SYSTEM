@@ -1,42 +1,65 @@
+        "
 """
-CEUNIA MVP
-Sistema mínimo de decisión, validación y memoria.
+CEUNIA MVP Integrated System
+Router + Validator + Memory + Meta Observer + Evolution
 """
 
 from core.router import ceunia_router
+from core.validator import validate
+from core.memory import save, get_memory
+from core.meta_observer import observe
+from core.evolution import evolve
 
 
 class CEUNIA_MVP:
 
     def __init__(self):
-        self.memory = []
         self.version = "MVP v1.0"
 
     def run(self, task, task_type="general"):
+
+        # 1. Selección de ruta
         model = ceunia_router(task_type)
 
-        result = {
+        # 2. Validación inicial
+        validation = validate(task)
+
+        # 3. Registro en memoria
+        memory_record = {
             "task": task,
-            "selected_model": model,
-            "status": "processed"
+            "model": model,
+            "validation": validation
         }
 
-        self.memory.append(result)
+        save(memory_record)
 
-        return result
+        # 4. Observación
+        observation = observe(memory_record)
 
-    def get_memory(self):
-        return self.memory
+        # 5. Evolución
+        evolution = evolve(
+            observation,
+            validation
+        )
+
+        return {
+            "model": model,
+            "validation": validation,
+            "observation": observation,
+            "evolution": evolution
+        }
 
 
 if __name__ == "__main__":
 
     ceunia = CEUNIA_MVP()
 
-    response = ceunia.run(
-        "Evaluar primera decisión CEUNIA",
+    result = ceunia.run(
+        "Primera prueba evolutiva CEUNIA",
         "analysis"
     )
 
     print("=== CEUNIA MVP ===")
-    print(response)
+    print(result)
+    print("=== MEMORY ===")
+    print(get_memory())
