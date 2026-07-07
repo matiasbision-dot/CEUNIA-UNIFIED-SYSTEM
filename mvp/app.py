@@ -1,5 +1,6 @@
-
- + Meta Observer + Evolution
+"""
+CEUNIA MVP Integrated System
+Router + Validator + Memory + Meta Observer + Evolution
 """
 
 from core.router import ceunia_router
@@ -16,13 +17,10 @@ class CEUNIA_MVP:
 
     def run(self, task, task_type="general"):
 
-        # 1. Selección de ruta
         model = ceunia_router(task_type)
 
-        # 2. Validación inicial
         validation = validate(task)
 
-        # 3. Registro en memoria
         memory_record = {
             "task": task,
             "model": model,
@@ -31,10 +29,8 @@ class CEUNIA_MVP:
 
         save(memory_record)
 
-        # 4. Observación
         observation = observe(memory_record)
 
-        # 5. Evolución
         evolution = evolve(
             observation,
             validation
@@ -59,5 +55,6 @@ if __name__ == "__main__":
 
     print("=== CEUNIA MVP ===")
     print(result)
+
     print("=== MEMORY ===")
     print(get_memory())
