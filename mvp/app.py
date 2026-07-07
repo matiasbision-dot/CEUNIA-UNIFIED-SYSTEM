@@ -1,7 +1,5 @@
-        "
-"""
-CEUNIA MVP Integrated System
-Router + Validator + Memory + Meta Observer + Evolution
+
+ + Meta Observer + Evolution
 """
 
 from core.router import ceunia_router
