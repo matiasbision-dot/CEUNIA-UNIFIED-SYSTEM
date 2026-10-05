@@ -1,0 +1,32 @@
+{
+  "system": "CEUNIA TRUST HUB",
+  "version": "v0.2-mcp-adapter",
+  "status": "PROPOSED_ADAPTER",
+  "purpose": "Define the capture boundary for real MCP tool calls without claiming an MCP server is present.",
+  "flow": [
+    "MCP client requests tool",
+    "Trust Gate checks identity and permission",
+    "Tool executes",
+    "Adapter captures request metadata and result metadata",
+    "Evidence Vault creates Trust Record",
+    "SHA-256 integrity hash is calculated",
+    "CEUNIA evaluates verification and risk",
+    "MetaObserver records evolution"
+  ],
+  "capture": {
+    "tool_name": true,
+    "server_identity": true,
+    "request_schema": true,
+    "input_hash": true,
+    "output_hash": true,
+    "timestamp": true,
+    "permission": true,
+    "risk": true,
+    "verification": true
+  },
+  "privacy": {
+    "raw_sensitive_payloads": "do_not_store_by_default",
+    "blockchain": "anchor_hash_only"
+  },
+  "important_boundary": "This specification is not itself an MCP implementation. It is the CEUNIA trust wrapper to be implemented around a real MCP client/server."
+}
