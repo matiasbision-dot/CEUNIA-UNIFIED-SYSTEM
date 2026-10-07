@@ -1,0 +1,14 @@
+{
+  "experiment_id": "CEUNIA-CEI-008",
+  "options": [
+    "ACTIVATE",
+    "NO_ACTION"
+  ],
+  "selected": "ACTIVATE",
+  "baseline_state": 0,
+  "activated_state": 1,
+  "delta": 1,
+  "rollback_verified": true,
+  "decision": "PASS_WITH_LIMITATION",
+  "limitation": "Controlled repository state transition; no external MCP wire-level call or performance benchmark."
+}
