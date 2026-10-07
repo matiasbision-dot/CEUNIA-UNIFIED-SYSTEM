@@ -1,0 +1,32 @@
+{
+  "experiment_id": "CEUNIA-CEI-016",
+  "purpose": "runtime capability gate before external MCP execution",
+  "timestamp_utc": "2026-10-07",
+  "target": "Serena MCP",
+  "checks": {
+    "github_connector_available": true,
+    "github_branch_available": true,
+    "serena_mcp_connector_exposed": false,
+    "mcp_server_endpoint_exposed": false,
+    "local_serena_binary_available": false,
+    "local_serena_cache_available": false,
+    "external_network_installation_available": false
+  },
+  "execution": {
+    "initialize": false,
+    "tools_list": false,
+    "tools_call": false,
+    "mutation": false
+  },
+  "status": "BLOCKED_BY_RUNTIME",
+  "decision": "DO_NOT_ATTEMPT_WIRE_EXECUTION_WITHOUT_ENDPOINT",
+  "evidence": [
+    "GitHub connector is available and branch ceunia/experiment/cei-001 exists",
+    "CEI-014 records no Serena endpoint/transport exposed",
+    "No Serena-specific MCP tool is exposed in the current tool runtime",
+    "Previous local installation attempt failed because external package retrieval could not resolve/connect"
+  ],
+  "interpretation": "The runtime can audit and persist CEI artifacts through GitHub, but cannot currently establish a wire-level Serena MCP session.",
+  "next_required": "Expose or connect a real Serena MCP endpoint/server, then execute initialize -> tools/list -> tools/call and record raw outputs plus hashes.",
+  "epistemic_boundary": "This experiment establishes a runtime capability boundary; it does not establish failure of Serena itself."
+}
