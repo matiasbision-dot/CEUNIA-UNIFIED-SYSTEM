@@ -1,0 +1,15 @@
+{
+  "experiment_id": "CEUNIA-CEI-013",
+  "wire_test": true,
+  "protocol_version": "2025-11-25",
+  "initialize_ok": true,
+  "tools_list_ok": true,
+  "tool_call_ok": true,
+  "echo": "CEUNIA-CEI-013",
+  "mutation": false,
+  "external_server": false,
+  "server_kind": "local deterministic MCP wire probe",
+  "limitation": "Not an official SDK conformance test; does not test Serena or another external production MCP server.",
+  "decision": "PASS_FOR_WIRE_SMOKE_TEST_CONTINUE_TO_EXTERNAL_SERVER",
+  "record_sha256": "dcf4a39726483383f2e588a5f0438899d18be62edca28ae6abf8f4d73a1f3ac1"
+}
