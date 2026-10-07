@@ -1,0 +1,32 @@
+{
+  "experiment_id":"CEUNIA-CEI-025",
+  "purpose":"advance the CEUNIA MCP execution gate using the current two-era MCP lifecycle model",
+  "verified_protocol_model":{
+    "legacy":"2024-10-07 through 2025-11-25 use initialize handshake",
+    "modern":"2026-07-28 uses server/discover and per-request _meta; no initialize handshake"
+  },
+  "execution_policy":{
+    "phase_1":"discover actual transport/server",
+    "phase_2":"probe server/discover when supported",
+    "phase_3":"select legacy or modern lifecycle",
+    "phase_4":"list tools",
+    "phase_5":"select least-privilege read-only tool",
+    "phase_6":"call tool and inspect isError/content/structuredContent",
+    "phase_7":"hash request and raw response",
+    "phase_8":"persist Evolution Record and MetaObservation"
+  },
+  "runtime":{
+    "serena_endpoint_exposed":false,
+    "generic_mcp_transport_exposed":false,
+    "server_discover_executed":false,
+    "initialize_executed":false,
+    "tools_list_executed":false,
+    "tools_call_executed":false,
+    "mutation":false
+  },
+  "status":"READY_FOR_ADAPTIVE_WIRE_EXECUTION_BUT_RUNTIME_ENDPOINT_BLOCKED",
+  "decision":"WAIT_FOR_REAL_MCP_TRANSPORT",
+  "epistemic_boundary":"Protocol behavior is externally documented and verified; no live Serena wire execution occurred in this CEI.",
+  "evidence":"Current MCP SDK documentation describes legacy and modern protocol eras and automatic lifecycle selection.",
+  "next_required":"Expose a real Serena MCP transport; then perform discovery/negotiation according to the server's supported era, followed by read-only tools/list and tools/call with raw evidence."
+}
