@@ -1,0 +1,25 @@
+{
+  "experiment_id":"CEUNIA-CEI-022",
+  "purpose":"execute a real Serena startup attempt before MCP handshake",
+  "target":"Serena MCP",
+  "command_attempted":"uvx --from serena-agent serena --version",
+  "runtime":{
+    "uvx_available":true,
+    "serena_on_path":false
+  },
+  "result":{
+    "serena_started":false,
+    "version_obtained":false,
+    "initialize":false,
+    "tools_list":false,
+    "tools_call":false,
+    "mutation":false
+  },
+  "status":"BLOCKED_BY_NETWORK",
+  "error_class":"DNS_RESOLUTION_FAILURE",
+  "error":"Failed to fetch https://pypi.org/simple/serena-agent/ ; failed to lookup address information: Temporary failure in name resolution",
+  "decision":"DO_NOT_FABRICATE",
+  "epistemic_boundary":"This is a runtime/network limitation and is not evidence that Serena itself is defective or unavailable.",
+  "official_reference":"Serena documents stdio MCP startup through the Serena start-mcp-server command; the current runtime cannot obtain the package required to launch that server.",
+  "next_required":"Provide cached/local Serena installation or network access to the package source, then execute real MCP initialize -> tools/list -> tools/call."
+}
