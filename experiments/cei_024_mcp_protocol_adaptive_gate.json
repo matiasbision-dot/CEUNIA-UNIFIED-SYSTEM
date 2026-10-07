@@ -1,0 +1,30 @@
+{
+  "experiment_id":"CEUNIA-CEI-024",
+  "purpose":"upgrade CEUNIA MCP interoperability from a fixed legacy handshake assumption to protocol-version-adaptive execution",
+  "finding":"Current MCP documentation distinguishes the legacy initialize lifecycle through protocol 2025-11-25 from the stateless lifecycle introduced in protocol 2026-07-28.",
+  "impact_on_ceunia":"CEI-020 through CEI-023 correctly recorded blocked execution, but their fixed initialize -> tools/list -> tools/call sequence must not be treated as universally mandatory for current MCP implementations.",
+  "new_gate":{
+    "step_1":"discover/expose actual MCP transport",
+    "step_2":"negotiate or identify protocol version",
+    "step_3":"if legacy lifecycle applies: initialize -> notifications/initialized",
+    "step_4":"if 2026-07-28 stateless lifecycle applies: omit legacy initialize handshake and use per-request protocol metadata",
+    "step_5":"tools/list",
+    "step_6":"select least-privilege read-only tool",
+    "step_7":"tools/call",
+    "step_8":"capture raw result including isError/structuredContent where present",
+    "step_9":"hash request and response",
+    "step_10":"Evolution Record + MetaObservation"
+  },
+  "runtime_status":{
+    "live_serena_transport_exposed":false,
+    "protocol_version_observed":null,
+    "tools_list_executed":false,
+    "tools_call_executed":false,
+    "mutation":false
+  },
+  "status":"ARCHITECTURE_UPGRADED_EXECUTION_STILL_BLOCKED",
+  "decision":"ADAPT_PROTOCOL_BEFORE_WIRE_EXECUTION",
+  "epistemic_boundary":"The protocol upgrade is based on current MCP documentation; it does not constitute a live Serena execution.",
+  "evidence_reference":"Official MCP SDK documentation states that 2025-11-25 uses the legacy initialize lifecycle, while 2026-07-28 introduces a stateless model without initialize/notifications/initialized.",
+  "next_required":"Expose a real Serena MCP transport, identify negotiated protocol behavior, then execute the appropriate lifecycle and record raw evidence."
+}
