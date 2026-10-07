@@ -1,0 +1,27 @@
+{
+  "experiment_id":"CEUNIA-CEI-020",
+  "purpose":"attempt the first real Serena MCP execution path without fabricating wire-level execution",
+  "target":"Serena MCP",
+  "protocol_sequence":["initialize","tools/list","tools/call"],
+  "transport":"stdio",
+  "runtime_precondition":"a live Serena MCP server process or exposed MCP transport must exist",
+  "observed_runtime": {
+    "serena_mcp_server_exposed":false,
+    "generic_mcp_transport_exposed":false,
+    "direct_serena_tool_exposed":false,
+    "serena_server_process_available":false
+  },
+  "execution": {
+    "initialize":false,
+    "tools_list":false,
+    "tools_call":false,
+    "mutation":false
+  },
+  "status":"BLOCKED_BY_RUNTIME_INTERFACE",
+  "decision":"DO_NOT_FABRICATE",
+  "result":"The real wire-level sequence could not be started because this runtime does not expose a live Serena MCP server or generic MCP transport.",
+  "evidence_basis":"CEI-019 runtime interface gate was independently read from the CEUNIA experiment branch immediately before this attempt; current tool registry inspection exposes GitHub and other MCP-backed integrations but no Serena MCP server transport.",
+  "epistemic_boundary":"This is evidence about the current execution environment, not evidence that Serena itself is defective or unavailable.",
+  "next_required":"Expose/connect a real Serena MCP server in the runtime, then execute initialize -> tools/list -> tools/call and persist raw protocol outputs plus hashes.",
+  "traceability":"CEI-020 records the blocked execution boundary rather than substituting a simulated protocol result."
+}
