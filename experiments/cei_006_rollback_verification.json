@@ -1,0 +1,14 @@
+{
+  "experiment_id": "CEUNIA-CEI-006",
+  "sequence": "baseline → intervention → delta → rollback → verification",
+  "delta_observed": 1,
+  "rollback_commits": [
+    "d30e4110996b7ef4deb89bda1f7ded7c913d0362",
+    "8f0de71e25b23c60ff67e0f3ce42a8fb146dd3a6"
+  ],
+  "baseline_artifact_present_after_rollback": false,
+  "intervention_artifact_present_after_rollback": false,
+  "rollback_verified": true,
+  "decision": "PASS_WITH_LIMITATION",
+  "limitation": "Rollback verified at repository artifact level; no external MCP wire-level or performance benchmark was executed."
+}
