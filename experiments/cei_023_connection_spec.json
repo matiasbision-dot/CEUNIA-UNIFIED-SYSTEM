@@ -1,0 +1,31 @@
+{
+  "experiment_id":"CEUNIA-CEI-023",
+  "purpose":"advance from blocked startup to an executable connection specification for the first real Serena MCP handshake",
+  "target":"Serena MCP",
+  "official_transport":"stdio",
+  "official_server_command":"serena start-mcp-server",
+  "recommended_client_context":"chatgpt",
+  "project_mode":"--project-from-cwd",
+  "required_runtime_condition":"Serena executable or package cache/network access plus an MCP client transport exposed to this session",
+  "protocol_gate":[
+    "initialize",
+    "tools/list",
+    "tools/call"
+  ],
+  "current_runtime_status":{
+    "serena_executable_available":false,
+    "serena_mcp_transport_exposed":false,
+    "network_installation_available":false
+  },
+  "wire_execution":{
+    "initialize":false,
+    "tools_list":false,
+    "tools_call":false,
+    "mutation":false
+  },
+  "status":"READY_BUT_BLOCKED_BY_RUNTIME",
+  "decision":"WAIT_FOR_REAL_MCP_ENDPOINT",
+  "do_not_fabricate":true,
+  "evidence_basis":"CEI-022 recorded the package-fetch DNS failure; official Serena documentation confirms stdio requires the client to launch the server subprocess and exposes the start-mcp-server command.",
+  "next_execution":"Once a real MCP connection is exposed, perform initialize -> tools/list -> select one read-only Serena tool -> tools/call -> capture raw output -> hash input/output -> write Evolution Record."
+}
