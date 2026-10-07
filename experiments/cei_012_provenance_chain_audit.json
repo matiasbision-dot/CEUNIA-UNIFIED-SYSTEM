@@ -1,0 +1,40 @@
+{
+  "experiment_id": "CEUNIA-CEI-012",
+  "purpose": "provenance-chain audit",
+  "classification": {
+    "CEI-001": "VERIFIED_RECORD",
+    "CEI-002": "VERIFIED_RECORD_WITH_MCP_LIMITATION",
+    "CEI-003": "VERIFIED_RECORD",
+    "CEI-004": "NOT_RECOVERABLE",
+    "CEI-005": "VERIFIED_RECORD",
+    "CEI-006": "VERIFIED_RECORD",
+    "CEI-007": "VERIFIED_RECORD",
+    "CEI-008": "VERIFIED_RECORD",
+    "CEI-009": "VERIFIED_RECORD",
+    "CEI-010": "VERIFIED_RECORD",
+    "CEI-011": "VERIFIED_RECORD"
+  },
+  "principle": "Missing evidence remains a gap; indirect evidence is not promoted to direct evidence.",
+  "records_present": 11,
+  "records_expected": 11,
+  "decision": "TRACEABILITY_C1_FOR_AVAILABLE_RECORDS_C3_FOR_CEI004",
+  "overall": "PARTIAL",
+  "limitations": [
+    "CEI-004 original record unavailable",
+    "No wire-level MCP server test",
+    "No performance/OOS claim"
+  ],
+  "records": {
+    "experiments/cei_001_protocol_selftest.py": true,
+    "experiments/cei_001_result.json": true,
+    "experiments/cei_002_external_read_result.json": true,
+    "experiments/cei_003_before_after_control.json": true,
+    "experiments/cei_005_result.json": true,
+    "experiments/cei_006_rollback_verification.json": true,
+    "experiments/cei_007_decision_gate.json": true,
+    "experiments/cei_008_activation_result.json": true,
+    "experiments/cei_009_conformance_battery.json": true,
+    "experiments/cei_010_traceability_audit.json": true,
+    "experiments/cei_011_reconstructed_cei004.json": true
+  }
+}
