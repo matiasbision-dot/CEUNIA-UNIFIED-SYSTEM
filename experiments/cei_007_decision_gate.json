@@ -1,0 +1,16 @@
+{
+  "experiment_id": "CEUNIA-CEI-007",
+  "mode": "decision-gate-control",
+  "options": [
+    "ACTIVATE",
+    "NO_ACTION"
+  ],
+  "selected": "NO_ACTION",
+  "action_executed": false,
+  "state_change": 0,
+  "point_albedrio_recorded": true,
+  "rationale": "Control condition: the system explicitly selected non-action before any mutation.",
+  "evidence": "decision event plus unchanged target state",
+  "decision": "PASS_WITH_LIMITATION",
+  "limitation": "No external MCP server was invoked; this validates the CEUNIA decision gate, not MCP wire-level behavior."
+}
