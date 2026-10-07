@@ -1,0 +1,41 @@
+{
+  "experiment_id": "CEUNIA-CEI-009",
+  "suite": "CEI-001..008",
+  "records_found": 8,
+  "records_total": 9,
+  "checks": {
+    "traceability": false,
+    "no_action_path": true,
+    "activation_path": true,
+    "measurable_delta": true,
+    "rollback": true,
+    "external_mcp_wire_test": false
+  },
+  "operationally_demonstrated": [
+    "decision gate with NO_ACTION",
+    "controlled state transition",
+    "observable delta",
+    "rollback verification",
+    "persistent experiment records"
+  ],
+  "still_hypothetical_or_unvalidated": [
+    "wire-level MCP interoperability",
+    "performance improvement",
+    "out-of-sample advantage",
+    "causal improvement attributable to an external MCP tool",
+    "autonomy/consciousness/free will"
+  ],
+  "conformance": "PARTIAL",
+  "decision": "CONTINUE_TO_CEI_010",
+  "records": {
+    "experiments/cei_001_protocol_selftest.py": true,
+    "experiments/cei_001_result.json": true,
+    "experiments/cei_002_external_read_result.json": true,
+    "experiments/cei_003_before_after_control.json": true,
+    "experiments/cei_004_rollback_verification.json": false,
+    "experiments/cei_005_result.json": true,
+    "experiments/cei_006_rollback_verification.json": true,
+    "experiments/cei_007_decision_gate.json": true,
+    "experiments/cei_008_activation_result.json": true
+  }
+}
