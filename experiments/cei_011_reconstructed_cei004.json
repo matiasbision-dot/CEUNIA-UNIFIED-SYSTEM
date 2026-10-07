@@ -1,0 +1,22 @@
+{
+  "experiment_id": "CEUNIA-CEI-011",
+  "purpose": "reconstruct missing CEI-004 record from surviving Git history",
+  "evidence": [
+    {
+      "commit": "d30e4110996b7ef4deb89bda1f7ded7c913d0362",
+      "action": "delete",
+      "file": "experiments/cei_005_baseline.txt",
+      "observed_diff": "CEI-005 baseline value=0 removed"
+    },
+    {
+      "commit": "8f0de71e25b23c60ff67e0f3ce42a8fb146dd3a6",
+      "action": "delete",
+      "file": "experiments/cei_005_intervention.txt",
+      "observed_diff": "CEI-005 intervention value=1 removed"
+    }
+  ],
+  "conclusion": "Evidence supports that rollback operations occurred, but these commits are CEI-006 evidence, not a recoverable CEI-004 record.",
+  "recovery": "NOT_RECOVERED",
+  "decision": "KEEP_GAP_EXPLICIT",
+  "limitation": "Do not synthesize CEI-004 from unrelated later commits."
+}
