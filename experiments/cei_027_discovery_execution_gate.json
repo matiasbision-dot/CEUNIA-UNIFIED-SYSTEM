@@ -1,0 +1,29 @@
+{
+  "experiment_id":"CEUNIA-CEI-027",
+  "purpose":"attempt the first real MCP discovery step while preserving a strict evidence boundary",
+  "target":"Serena MCP",
+  "intended_request":"server/discover",
+  "modern_protocol":"2026-07-28",
+  "runtime_precondition":"live Serena MCP transport or server endpoint exposed to the current runtime",
+  "observed_runtime":{
+    "serena_mcp_transport_exposed":false,
+    "generic_mcp_transport_exposed":false,
+    "live_serena_server_process_exposed":false
+  },
+  "execution":{
+    "server_discover_sent":false,
+    "raw_response_captured":false,
+    "protocol_version_observed":null,
+    "capabilities_observed":null,
+    "server_identity_observed":null,
+    "tools_list_executed":false,
+    "tools_call_executed":false,
+    "mutation":false
+  },
+  "status":"BLOCKED_BEFORE_WIRE_DISCOVERY",
+  "decision":"DO_NOT_SIMULATE_SERVER_DISCOVER",
+  "evidence_boundary":"Current MCP documentation verifies the discovery contract, but this CEI contains no live server/discover response and therefore establishes no Serena capabilities or identity.",
+  "protocol_note":"For modern MCP 2026-07-28, server/discover is mandatory on the server and may be used by clients for up-front discovery; legacy interoperability still requires transport-specific fallback to initialize.",
+  "next_required":"Expose a live Serena MCP transport. Send server/discover, preserve the raw JSON-RPC response, hash request/response, verify supportedVersions and capabilities, then proceed to CEI-028 tools/list only if discovery establishes compatibility.",
+  "integrity_rule":"A documented protocol contract is not execution evidence."
+}
