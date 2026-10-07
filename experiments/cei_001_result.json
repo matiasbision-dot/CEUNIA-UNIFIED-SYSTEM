@@ -1,0 +1,27 @@
+{
+  "experiment_id": "CEUNIA-CEI-001",
+  "mode": "protocol-self-test",
+  "status": "PASS_WITH_LIMITATION",
+  "external_mcp_invoked": false,
+  "rollback_required": false,
+  "baseline_state": "README@538df972737e29e473fdd4dadcda88def66a34f5",
+  "point_albedrio": {
+    "options": ["OBSERVE", "ACTIVATE", "REJECT", "WAIT"],
+    "decision": "ACTIVATE"
+  },
+  "action": {
+    "type": "READ_ONLY",
+    "target": "repository README",
+    "mutation": false
+  },
+  "result": {
+    "read_succeeded": true,
+    "integrity_check": "PASS"
+  },
+  "limitations": [
+    "No external MCP server/tool was invoked",
+    "No performance delta or OOS improvement was measured",
+    "No integration decision is authorized by this run"
+  ],
+  "record_sha256": "579701b7334db79b2a8f55de138e6eb60ab359eb99b0728d1f51f21dfe2597f6"
+}
