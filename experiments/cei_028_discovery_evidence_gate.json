@@ -1,0 +1,27 @@
+{
+  "experiment_id":"CEUNIA-CEI-028",
+  "purpose":"upgrade discovery evidence handling using current MCP protocol-era documentation",
+  "external_protocol_evidence":{
+    "legacy_era":"2024-10-07 through 2025-11-25",
+    "modern_era":"2026-07-28",
+    "modern_discovery":"server/discover",
+    "modern_discovery_payload":"supported protocol versions, capabilities, instructions and server identity metadata",
+    "auto_behavior":"probe server/discover first and fall back to initialize for legacy servers"
+  },
+  "runtime_execution":{
+    "live_serena_transport_exposed":false,
+    "server_discover_sent":false,
+    "raw_discover_response":null,
+    "supported_versions_observed":null,
+    "capabilities_observed":null,
+    "server_identity_observed":null,
+    "tools_list_executed":false,
+    "tools_call_executed":false,
+    "mutation":false
+  },
+  "status":"EVIDENCE_MODEL_UPGRADED_EXECUTION_BLOCKED",
+  "decision":"DO_NOT_TREAT_DOCUMENTATION_AS_SERVER_EVIDENCE",
+  "epistemic_boundary":"Official MCP SDK documentation establishes the discovery contract and negotiation behavior, but no live Serena server response was obtained. Therefore no Serena capability, identity or supported-version claim is asserted.",
+  "ceunia_rule":"External protocol documentation is context/evidence about the protocol; only a live server response can establish the observed state of that server.",
+  "next_required":"Expose live Serena MCP transport and capture server/discover raw response. Hash raw response and persist supported_versions, capabilities, instructions and identity before tools/list."
+}
