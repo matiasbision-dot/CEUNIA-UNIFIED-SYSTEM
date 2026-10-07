@@ -1,0 +1,17 @@
+{
+  "experiment_id": "CEUNIA-CEI-010",
+  "purpose": "traceability gap recovery and integrity audit",
+  "records_expected": 9,
+  "records_found": 8,
+  "missing": [
+    "experiments/cei_004_rollback_verification.json"
+  ],
+  "recovery_status": "UNRESOLVED",
+  "integrity_checks": {
+    "chronological_chain": "PARTIAL",
+    "record_presence": false,
+    "main_branch_untouched": true
+  },
+  "decision": "CONTINUE_OBSERVING",
+  "limitation": "Presence audit does not prove execution semantics or wire-level MCP interoperability."
+}
