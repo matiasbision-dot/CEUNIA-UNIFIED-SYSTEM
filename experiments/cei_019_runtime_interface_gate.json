@@ -1,0 +1,22 @@
+{
+  "experiment_id":"CEUNIA-CEI-019",
+  "purpose":"final runtime probe for a real Serena MCP execution path",
+  "official_serena_mode":"stdio",
+  "official_start_command":"serena start-mcp-server",
+  "runtime_tool_probe":{
+    "direct_serena_mcp_tool_exposed":false,
+    "direct_mcp_server_connector_exposed":false
+  },
+  "execution":{
+    "initialize":false,
+    "tools_list":false,
+    "tools_call":false,
+    "mutation":false
+  },
+  "status":"BLOCKED_BY_RUNTIME_INTERFACE",
+  "decision":"DO_NOT_FABRICATE",
+  "evidence":"Current tool registry exposes no Serena MCP server or generic MCP transport that can accept a live Serena stdio session.",
+  "external_reference":"Official Serena documentation confirms stdio is the normal MCP transport and the client must launch the server subprocess.",
+  "next_required":"Expose/connect Serena as an MCP server in the ChatGPT runtime; then execute the real initialize -> tools/list -> tools/call sequence.",
+  "epistemic_boundary":"This does not establish a defect or unavailability of Serena; it establishes that this ChatGPT runtime currently has no direct execution interface to it."
+}
