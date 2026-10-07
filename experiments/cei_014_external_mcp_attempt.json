@@ -1,0 +1,18 @@
+{
+  "experiment_id": "CEUNIA-CEI-014",
+  "purpose": "external MCP server verification",
+  "status": "BLOCKED_BY_RUNTIME",
+  "external_server_target": "Serena",
+  "transport": "not established",
+  "initialize_ok": false,
+  "tools_list_ok": false,
+  "tool_call_ok": false,
+  "mutation": false,
+  "evidence": [
+    "No Serena MCP endpoint/transport is exposed to the current runtime",
+    "No external MCP server invocation was performed"
+  ],
+  "decision": "DO_NOT_FABRICATE",
+  "next_required": "Expose a real MCP endpoint/connected Serena server, then repeat initialize → tools/list → tools/call under the CEI gate.",
+  "limitation": "The GitHub connector cannot be treated as proof of a wire-level Serena MCP connection."
+}
