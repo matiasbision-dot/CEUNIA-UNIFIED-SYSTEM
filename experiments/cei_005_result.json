@@ -1,0 +1,11 @@
+{
+  "experiment_id": "CEUNIA-CEI-005",
+  "baseline_value": 0,
+  "intervention_value": 1,
+  "delta": 1,
+  "baseline_sha": "252cbed67b72b91e5fb494234e2e6659fb512ba6",
+  "intervention_sha": "41ddbe0c50c589e2ce6cb163c0ff5133e8a579ce",
+  "attribution": "controlled file-content intervention; no performance claim",
+  "decision": "ROLLBACK_REQUIRED_NEXT",
+  "limitation": "This demonstrates observable state delta, not causal performance improvement."
+}
