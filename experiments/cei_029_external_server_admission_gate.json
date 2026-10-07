@@ -1,0 +1,32 @@
+{
+  "experiment_id":"CEUNIA-CEI-029",
+  "purpose":"advance CEUNIA from protocol discovery to governed admission of an external MCP server",
+  "state_of_art_signal":"Current MCP work is moving beyond interoperability toward runtime reliability and trust/admission controls. MCP itself standardizes interaction but does not by itself establish that an external server is trusted or that every exposed tool is in scope.",
+  "gate":{
+    "A":"identify server and provenance",
+    "B":"verify transport and protocol compatibility",
+    "C":"obtain discovery metadata",
+    "D":"establish server-level authorization",
+    "E":"apply deny-by-default tool allowlist",
+    "F":"classify tool risk and required permissions",
+    "G":"require read-only first where feasible",
+    "H":"capture immutable audit evidence",
+    "I":"only then permit tools/call"
+  },
+  "ceunia_admission_record":{
+    "server":"Serena MCP",
+    "provenance":"official Serena project documentation",
+    "transport":"stdio or Streamable HTTP",
+    "live_endpoint_observed":false,
+    "discovery_observed":false,
+    "authorization_observed":false,
+    "tool_allowlist_observed":false,
+    "tool_call_executed":false,
+    "mutation":false
+  },
+  "status":"ADMISSION_GATE_DEFINED_EXECUTION_BLOCKED",
+  "decision":"DENY_UNTIL_LIVE_ENDPOINT_AND_DISCOVERY_EVIDENCE",
+  "epistemic_boundary":"Official documentation establishes how Serena and MCP can operate; it does not establish that a live Serena instance is connected to this runtime.",
+  "security_principle":"Interoperability is capability. Admission is governance. Execution requires both.",
+  "next_required":"Expose a live Serena MCP transport, execute discovery, verify identity/capabilities/protocol, create a deny-by-default tool allowlist, then permit a read-only tool call if authorized."
+}
