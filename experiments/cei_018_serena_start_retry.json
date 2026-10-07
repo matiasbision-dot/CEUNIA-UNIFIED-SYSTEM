@@ -1,0 +1,23 @@
+{
+  "experiment_id": "CEUNIA-CEI-018",
+  "purpose": "repeat real Serena MCP startup attempt after CEI-017",
+  "target": "Serena MCP",
+  "command_attempted": "uvx --from serena-agent serena --version",
+  "runtime": {
+    "uvx_path": "/opt/pyvenv/bin/uvx",
+    "serena_on_path": false
+  },
+  "result": {
+    "started": false,
+    "version_obtained": false,
+    "mcp_initialize": false,
+    "mcp_tools_list": false,
+    "mcp_tools_call": false
+  },
+  "status": "BLOCKED_BY_NETWORK",
+  "error": "uvx could not fetch serena-agent from https://pypi.org/simple/serena-agent/ because DNS lookup failed",
+  "mutation": false,
+  "decision": "DO_NOT_FABRICATE",
+  "epistemic_boundary": "This is a runtime/network failure, not evidence that Serena itself is unavailable or defective.",
+  "next_required": "Provide reachable package/network access or a local/cached Serena installation, then start the real server and perform initialize -> tools/list -> tools/call."
+}
