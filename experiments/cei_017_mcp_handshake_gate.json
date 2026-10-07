@@ -1,0 +1,31 @@
+{
+  "experiment_id": "CEUNIA-CEI-017",
+  "purpose": "real MCP handshake gate",
+  "target": "Serena MCP",
+  "official_transport": "stdio",
+  "runtime_probe": {
+    "serena_binary": false,
+    "uvx": true,
+    "local_serena_cache": false,
+    "github_dns_resolution": false,
+    "pypi_dns_resolution": false,
+    "running_serena_process": false
+  },
+  "protocol_execution": {
+    "server_start": false,
+    "initialize": false,
+    "tools_list": false,
+    "tools_call": false
+  },
+  "status": "BLOCKED_BEFORE_HANDSHAKE",
+  "decision": "DO_NOT_FABRICATE",
+  "evidence": [
+    "No serena executable is present in PATH",
+    "uvx is present",
+    "No local Serena cache was found in probed runtime paths",
+    "DNS resolution for github.com and pypi.org returned no address",
+    "No Serena/MCP server process is running"
+  ],
+  "boundary": "The MCP handshake cannot begin because no Serena server process or reachable package source is available.",
+  "next_required": "Provide a reachable/cached Serena installation or expose a live MCP endpoint; then execute initialize -> tools/list -> tools/call and capture raw protocol evidence."
+}
