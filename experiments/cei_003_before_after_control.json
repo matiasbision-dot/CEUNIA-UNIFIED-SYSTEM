@@ -1,0 +1,13 @@
+{
+  "experiment_id": "CEUNIA-CEI-003",
+  "mode": "before-after-control",
+  "target": "README.md",
+  "baseline_sha": "538df972737e29e473fdd4dadcda88def66a34f5",
+  "experimental_sha": "538df972737e29e473fdd4dadcda88def66a34f5",
+  "content_unchanged": true,
+  "mutation_detected": false,
+  "delta_observable": 0,
+  "decision": "CONTINUE_OBSERVING",
+  "interpretation": "Control condition: no change detected between baseline and experimental branch for the tested artifact.",
+  "limitation": "This is a repository-state control, not a capability-performance benchmark and not a wire-level MCP test."
+}
