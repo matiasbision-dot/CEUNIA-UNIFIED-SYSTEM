@@ -1,3 +1,0 @@
-CEI-004 reversible probe
-experiment=CEUNIA-CEI-004
-mutation=temporary
