@@ -1,0 +1,36 @@
+{
+  "experiment_id":"CEUNIA-CEI-026",
+  "purpose":"formalize the first discovery gate for CEUNIA MCP interoperability",
+  "protocol_basis":{
+    "modern_era":"2026-07-28",
+    "modern_discovery":"server/discover",
+    "legacy_era":"2024-10-07 through 2025-11-25",
+    "legacy_fallback":"initialize",
+    "auto_policy":"discover first, fall back only when discovery is unsupported"
+  },
+  "ceunia_gate":{
+    "1":"expose_or_locate_real_transport",
+    "2":"send_discovery_probe_when_transport_is_available",
+    "3":"capture_supported_protocol_versions_capabilities_identity",
+    "4":"select_compatible_protocol_era",
+    "5":"only_then_list_tools",
+    "6":"select least_privilege_read_only_tool",
+    "7":"call_tool",
+    "8":"capture_raw_result_and_hashes",
+    "9":"metaobserve_and_persist_evolution_record"
+  },
+  "runtime_observation":{
+    "real_serena_transport_exposed":false,
+    "discovery_executed":false,
+    "protocol_version_observed":null,
+    "capabilities_observed":null,
+    "tools_list_executed":false,
+    "tools_call_executed":false,
+    "mutation":false
+  },
+  "status":"DISCOVERY_GATE_DEFINED_BUT_BLOCKED_BEFORE_WIRE",
+  "decision":"DO_NOT_SIMULATE_DISCOVERY",
+  "epistemic_boundary":"The protocol discovery procedure is verified from current official MCP SDK documentation; no live server/discover response was obtained in this experiment.",
+  "evidence":"Official MCP SDK documentation states that 2026-07-28 servers implement server/discover and that auto negotiation probes discovery before falling back to the legacy initialize handshake.",
+  "next_required":"Expose a real Serena MCP transport or endpoint. Execute discovery against the live server, preserve the raw response, hash it, and use the observed protocol/capabilities to drive CEI-027."
+}
