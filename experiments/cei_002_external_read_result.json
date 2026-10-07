@@ -1,0 +1,19 @@
+{
+  "experiment_id": "CEUNIA-CEI-002",
+  "mode": "external-capability-read-only",
+  "external_capability": "GitHub connector",
+  "protocol_status": "MCP_SERVER_NOT_INVOCABLE_IN_THIS_RUNTIME",
+  "action": "READ_ONLY_FETCH",
+  "target": "main/README.md",
+  "baseline_blob_sha": "538df972737e29e473fdd4dadcda88def66a34f5",
+  "observed_read_success": true,
+  "mutation": false,
+  "rollback_required": false,
+  "evidence_classification": [
+    "F: README fetched",
+    "E: returned blob SHA",
+    "I: successful external capability invocation"
+  ],
+  "limitation": "This validates CEI governance against an external tool, but does not constitute a wire-level MCP server/client test.",
+  "decision": "CONTINUE_OBSERVING"
+}
