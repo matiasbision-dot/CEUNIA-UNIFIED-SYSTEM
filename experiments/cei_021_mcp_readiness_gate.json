@@ -1,0 +1,24 @@
+{
+  "experiment_id":"CEUNIA-CEI-021",
+  "purpose":"re-check whether the runtime has acquired a real Serena MCP execution path after CEI-020",
+  "target":"Serena MCP",
+  "official_transport":"stdio",
+  "official_start_command":"serena start-mcp-server",
+  "runtime_observation":{
+    "direct_serena_mcp_tool_exposed":false,
+    "generic_mcp_transport_exposed":false,
+    "live_serena_endpoint_exposed":false
+  },
+  "protocol_execution":{
+    "initialize":false,
+    "tools_list":false,
+    "tools_call":false,
+    "mutation":false
+  },
+  "status":"BLOCKED_BEFORE_HANDSHAKE",
+  "decision":"DO_NOT_FABRICATE",
+  "evidence":"The current runtime still provides no direct Serena MCP server interface or generic MCP transport callable from this session.",
+  "external_validation":"Official Serena documentation confirms that stdio requires the MCP client to launch the Serena server subprocess, while HTTP mode requires a running endpoint.",
+  "epistemic_boundary":"This gate measures runtime connectivity only; it does not establish that Serena is unavailable or defective.",
+  "next_required":"Expose a live Serena MCP server through a supported MCP connection, then perform initialize -> tools/list -> tools/call with raw outputs and hashes."
+}
