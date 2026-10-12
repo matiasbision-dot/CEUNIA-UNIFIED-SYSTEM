@@ -31,8 +31,9 @@ class EvidenceRouterTests(unittest.TestCase):
         router = EvidenceRouter(models=("A", "B"), min_samples=1)
         router.record_result(model="B", task_type="forecast", metric="mae", value=0.01,
                              dataset_id="other", split="test")
-        self.assertIn("fallback", router.get_history() == [] and "fallback" or
-                      router.select_model(task_type="forecast", metric="mae", dataset_id="target"))
+        router.select_model(task_type="forecast", metric="mae", dataset_id="target", split="test")
+        self.assertIn("fallback", router.get_history()[-1]["reason"])
+        self.assertEqual(router.get_history()[-1]["sample_counts"]["B"], 0)
 
     def test_training_results_rejected(self):
         router = EvidenceRouter(models=("A",), min_samples=1)
