@@ -39,11 +39,15 @@ def fetch_nasa_power_monthly() -> tuple[list[str], list[float], str]:
     for key, value in sorted(parameter_data.items()):
         if not (isinstance(key, str) and len(key) == 6 and key.isdigit()):
             continue
+        # NASA monthly responses may include YYYY13 as an annual aggregate; exclude it.
+        month_number = int(key[4:6])
+        if month_number < 1 or month_number > 12:
+            continue
         val = float(value)
         if not math.isfinite(val) or val <= -900:
             continue
         pairs.append((f"{key[:4]}-{key[4:6]}", val))
-    if len(pairs) < 100:
+    if len(pairs) < 100 or any(int(month.split("-")[1]) > 12 for month, _ in pairs):
         raise RuntimeError(f"Too few valid monthly observations: {len(pairs)}")
     return [p[0] for p in pairs], [p[1] for p in pairs], digest
 
