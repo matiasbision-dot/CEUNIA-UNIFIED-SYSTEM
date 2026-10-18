@@ -1,21 +1,11 @@
-# CEUNIA Ω: anticipatory correction v1.1
+# CEUNIA Ω online metacode v1.1
 
-## Diagnosis
-The v1 fixed residual correction used a constant learning rate and applied corrections even though the trend candidate performed worse than the persistence baseline on the deterministic synthetic reference series. The correction lacked an evidence gate.
+The runner retrieves NASA POWER monthly T2M for a point near Mar del Plata and replays each month as a simulated future. At time t, persistence, seasonal-naive, and online-corrected predictions are made from prior observations only. A trailing window of already revealed outcomes selects a model only when it beats persistence by a minimum relative margin. Then target t is revealed and the exponential moving average of seasonal residuals is updated for t+1.
 
-## Fix
-- Persistence is the safe default.
-- Predictions use only observations available before each target.
-- Candidate selection uses trailing prequential errors from prior observations only.
-- A candidate must beat baseline validation MAE by at least the configured margin (default 3%) before it can replace the baseline.
-- The current target is revealed only after predictions are stored; then residual bias is updated.
-- Reports include all MAEs, selection counts, protocol and SHA-256 fingerprint.
+This is genuine online-style sequential evaluation on historical data, not knowledge of the actual future. The downloaded response and final report receive SHA-256 fingerprints. The report contains each model's MAE, improvements versus persistence, and selection counts. Results must be interpreted with a final untouched chronological holdout; online selection itself can overfit the recent validation window. No financial or external actions are performed.
 
-## Run
+Run:
 ```bash
-python -m unittest discover -s tests -p "test_anticipatory_correction.py" -v
-python -m ceunia.metacode.anticipatory_correction
+python -m unittest discover -s tests -p "test_nasa_power_validation.py" -v
+python -m ceunia.metacode.nasa_power_validation
 ```
-
-## Evidence boundary
-This run uses deterministic synthetic data, not NASA POWER or live data. A no-switch result means the gate rejected unproven corrections; it is not evidence of predictive superiority. Validate with a hashed real dataset, chronological train/validation/test splits, frozen parameters and all results reported. Not for financial execution.
