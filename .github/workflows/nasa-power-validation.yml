@@ -1,0 +1,25 @@
+name: CEUNIA real historical validation
+on:
+  push:
+    branches:
+      - feature/ceunia-anticipatory-correction-v1
+  workflow_dispatch:
+jobs:
+  nasa-power-walk-forward:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Unit tests
+        run: python -m unittest discover -s tests -p "test_nasa_power_validation.py" -v
+      - name: Fetch NASA POWER and run walk-forward replay
+        run: python -m ceunia.metacode.nasa_power_validation
+      - name: Upload reproducible report
+        uses: actions/upload-artifact@v4
+        with:
+          name: ceunia-nasa-power-walk-forward-report
+          path: ceunia_nasa_power_report.json
+          if-no-files-found: error
