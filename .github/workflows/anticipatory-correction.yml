@@ -18,3 +18,5 @@ jobs:
         run: python -m unittest discover -s tests -p "test_anticipatory_correction.py" -v
       - name: Run existing MetaCode tests
         run: python -m unittest discover -s tests -p "test_metacode_evolution.py" -v
+      - name: Execute anticipatory correction report
+        run: python -m ceunia.metacode.anticipatory_correction
