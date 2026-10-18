@@ -13,8 +13,8 @@ from typing import Any
 
 LATITUDE = -38.0
 LONGITUDE = -57.55
-START_DATE = "201001"
-END_DATE = "202512"
+START_DATE = "2010"
+END_DATE = "2025"
 PARAMETER = "T2M"
 USER_AGENT = "CEUNIA-Research-Prototype/1.0"
 
