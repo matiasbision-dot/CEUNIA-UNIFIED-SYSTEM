@@ -1,0 +1,15 @@
+{
+  "version": "CEUNIA-COMMERCIAL-EVOLUTION-0.4",
+  "method": "Weighted decision rubric + Monte Carlo perturbation sensitivity analysis",
+  "seed": 20261018,
+  "simulations": 50000,
+  "rubric_weights": {"buyer_pain":0.18,"mvp_speed":0.16,"measurable_roi":0.17,"differentiation":0.12,"repeatability":0.12,"sales_access":0.1,"delivery_ease":0.07,"evidence_fit":0.08},
+  "candidate_results": [
+    {"hypothesis":"AI evaluation + audit observatory","weighted_score_1_to_5":4.245,"win_rate_under_score_perturbation":0.9998,"mean_rank_under_perturbation":1.0,"pricing_hypothesis_usd_not_validated":[3000,10000]},
+    {"hypothesis":"Inter-IA orchestration layer","weighted_score_1_to_5":3.615,"win_rate_under_score_perturbation":0.0002,"mean_rank_under_perturbation":2.049,"pricing_hypothesis_usd_not_validated":[5000,20000]},
+    {"hypothesis":"Adaptive learning / drift recovery module","weighted_score_1_to_5":3.315,"win_rate_under_score_perturbation":0.0,"mean_rank_under_perturbation":2.951,"pricing_hypothesis_usd_not_validated":[4000,15000]}
+  ],
+  "recommended_first_experiment":"AI evaluation + audit observatory",
+  "decision":"Prioritize this as the first paid-pilot hypothesis, then validate with buyer interviews and paid-pilot conversion.",
+  "limitations":["Scores and prices are assumptions, not market data.","Monte Carlo measures sensitivity to subjective rubric scores, not actual probability of success.","No revenue, uniqueness, or customer demand is proven."]
+}
