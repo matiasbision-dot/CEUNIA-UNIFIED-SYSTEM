@@ -55,7 +55,7 @@ def run(seed=SEED, n_sim=N_SIM):
     for _ in range(n_sim):
         trial = {}
         for name, item in HYPOTHESES.items():
-            noisy = {k: max(1.0, min(5.0, val + rng.uniform(-0.6, 0.6))
+            noisy = {k: max(1.0, min(5.0, val + rng.uniform(-0.6, 0.6)))
                      for k, val in item["scores"].items()}
             trial[name] = weighted_score(noisy)
         winner = max(trial, key=trial.get)
