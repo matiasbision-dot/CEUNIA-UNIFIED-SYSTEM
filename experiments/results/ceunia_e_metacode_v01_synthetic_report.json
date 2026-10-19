@@ -1,0 +1,40 @@
+{
+  "version": "CEUNIA-E-PACR-0.1",
+  "execution_environment": "local Python runtime",
+  "dataset": "synthetic_nonstationary_stream",
+  "seeds": [
+    20261018,
+    20261019,
+    20261020
+  ],
+  "observations_per_seed": 2400,
+  "total_observations": 7200,
+  "metrics": {
+    "mean_prequential_log_loss": 0.46777604896452685,
+    "fixed_0_5_log_loss": 0.6931471805599453,
+    "mean_gain_vs_fixed_0_5": 0.2253711315954184,
+    "mean_accuracy": 0.7963888888888889,
+    "mean_first_half_log_loss": 0.38837360654518277,
+    "mean_second_half_log_loss": 0.5471784913838711,
+    "mean_runtime_seconds": 0.08162683066666432
+  },
+  "hash_chain_valid_each_seed": [
+    true,
+    true,
+    true
+  ],
+  "event_count_each_seed": 4800,
+  "learning_updates_each_seed": [
+    2399,
+    2399,
+    2399
+  ],
+  "pass": true,
+  "caveats": [
+    "Synthetic data only, not real-world or prospective evidence.",
+    "The fixed 0.5 comparator is weak; the reported gain is not evidence of superiority over competitive baselines.",
+    "Error increases in the second half after the simulated concept reversal, showing a material adaptation challenge.",
+    "Potency, metapotency, serendipity and meta-serendipity are provisional proxies, not validated metrics.",
+    "Hash chaining detects tampering within the recorded chain but does not prove source authenticity."
+  ]
+}
