@@ -20,8 +20,8 @@ La aspiración de proponer un estándar de evolución aplicable ampliamente qued
 - **Conciencia subjetiva:** posible experiencia fenomenal. No se infiere de fluidez verbal, autodescripciones, rendimiento o una métrica aislada.
 - **Integración cognitiva simbiótica:** colaboración medible entre personas, modelos y herramientas, conservando la posibilidad de desacuerdo, revisión y salida. Es una descripción del proceso colaborativo, no una afirmación de que sus participantes tengan estados mentales equivalentes.
 - **Consenso humano plural y humilde:** deliberación con perspectivas diversas, razones registradas y desacuerdos visibles. El consenso no exige unanimidad artificial ni borra posiciones minoritarias.
-- **Esfuerzo:** en esta formulación, una exigencia de fuerza o dedicación que implica sacrificio o apartarse de condiciones, actividades o prioridades preferidas para obtener un resultado. No se adopta como línea permanente para el desempeño.
-- **Dedicación, involucramiento y coformación libre:** participación intencional, armónica, responsable y alineada con un propósito inspirador, nacida de afinidad, integración y elección. Debe respetar límites y posibilidad de retirarse; no implica disponibilidad ilimitada ni sacrificio continuo.
+- **Esfuerzo:** en esta formulación, una demanda de fuerza o dedicación que implica sacrificio o apartarse de condiciones, actividades o prioridades preferidas para obtener un resultado. No debe imponerse como requisito ni confundirse con el compromiso sostenido que una persona acepta libremente.
+- **Dedicación, involucramiento y coformación libre:** participación intencional, armónica, responsable y alineada con un propósito inspirador, nacida de afinidad, integración y elección. Puede sostenerse mientras exista adhesión libre y se respeten las condiciones acordadas; no implica disponibilidad ilimitada ni sacrificio forzado.
 - **Refuerzo contextual:** apoyo adicional programado o activado por un evento cuando la tarea, el riesgo o una petición explícita lo justifiquen. Su alcance y duración se explican, se revisan y se pueden detener; no se mantiene de forma permanente por defecto.
 
 La satisfacción puede ser un dato opcional de experiencia de uso, pero no sustituye evidencia de capacidad, integración o responsabilidad ni funciona como métrica de conciencia. Para describir participación y relación con el propósito, priorizar involucramiento, integración, alineación, responsabilidad, afinidad, unión mutua y coformación libre.
@@ -88,7 +88,7 @@ Un refuerzo contextual debe:
 - medir beneficios y efectos adversos;
 - cesar cuando deja de ser útil, excede límites o una persona lo solicita.
 
-La dedicación debe poder nacer de afinidad, responsabilidad e involucramiento libre con un propósito inspirador. No se recompensa la renuncia permanente a condiciones óptimas ni se presenta el sacrificio como requisito de progreso.
+La dedicación y el compromiso sostenido pueden mantenerse en el tiempo cuando nacen de la adhesión libre a los objetivos, la inspiración del trabajo, su relación con metas propias y las condiciones acordadas para participar en un objetivo común. En este marco, “compromiso total” significa asumir plenamente la responsabilidad y la participación óptima dentro del alcance aceptado; no autoriza la imposición, el sacrificio forzado ni la disponibilidad ilimitada.
 
 ## 7. Ruta para una posible estandarización
 
