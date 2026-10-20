@@ -1,0 +1,22 @@
+{
+  "system": "CEUNIA TRUST HUB",
+  "version": "v0.1",
+  "purpose": "independent verification specification for Trust Records",
+  "checks": [
+    "record schema completeness",
+    "previous_hash continuity",
+    "current_hash recomputation",
+    "permission presence",
+    "evidence presence",
+    "verification state"
+  ],
+  "status_model": [
+    "verified",
+    "partial",
+    "pending",
+    "conflict",
+    "unauthorized"
+  ],
+  "principle": "Integrity of a record does not prove truth of its contents; it proves that the recorded representation was not altered after hashing.",
+  "next_integration": "MCP tool-call capture"
+}
