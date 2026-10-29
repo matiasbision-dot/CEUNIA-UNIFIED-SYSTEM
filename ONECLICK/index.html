@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10131b">
+<title>CEUNIA ONECLICK · Un botón, un mundo</title>
+<style>
+:root{color-scheme:dark;--bg:#10131b;--panel:#191e29;--line:#30394b;--text:#f4f6fb;--muted:#aab4c7;--accent:#b7f36b;--blue:#9cc8ff}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at top,#202a3a 0,var(--bg) 58%);color:var(--text);font:16px/1.5 system-ui,-apple-system,Segoe UI,sans-serif;min-height:100vh;display:grid;place-items:center;padding:20px}
+main{width:min(100%,680px)}.brand{font-size:13px;letter-spacing:.16em;color:var(--accent);font-weight:800}.hero{font-size:clamp(34px,8vw,56px);line-height:1.02;letter-spacing:-.04em;margin:14px 0}.sub{color:var(--muted);margin:0 0 24px}.card{background:rgba(25,30,41,.94);border:1px solid var(--line);border-radius:22px;padding:20px;margin:14px 0;box-shadow:0 20px 70px #0003}.label{display:block;font-weight:700;margin-bottom:8px}textarea{width:100%;min-height:92px;resize:vertical;background:#10141d;border:1px solid #465168;border-radius:13px;color:var(--text);padding:14px;font:inherit}button{border:0;border-radius:12px;padding:12px 16px;font:inherit;font-weight:750;cursor:pointer}.primary{background:var(--accent);color:#151a12;width:100%;margin-top:12px}.secondary{background:#283244;color:var(--text);border:1px solid #465168}.chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}.status{color:var(--muted);font-size:14px;margin-top:12px;overflow-wrap:anywhere}.result{border-left:3px solid var(--accent);padding:4px 0 4px 14px;margin-top:14px}.tag{display:inline-block;border:1px solid #65734d;border-radius:999px;padding:3px 9px;font-size:12px;color:var(--accent);font-weight:800}.small{font-size:13px;color:var(--muted)}.foot{margin:20px 0;color:var(--muted);font-size:13px}.hidden{display:none}
+</style>
+</head>
+<body>
+<main>
+  <div class="brand">CEUNIA · ONECLICK</div>
+  <h1 class="hero">Un botón.<br>Un mundo.</h1>
+  <p class="sub">Decí qué necesitás. OneClick está pensado para conectar tu pedido con opciones reales, estés donde estés.</p>
+  <section class="card" aria-labelledby="request-title">
+    <label class="label" id="request-title" for="request">¿Qué necesitás?</label>
+    <textarea id="request" placeholder="Por ejemplo: necesito un taxi"></textarea>
+    <div class="chips">
+      <button class="secondary" data-value="Necesito un taxi">🚕 Un taxi</button>
+      <button class="secondary" data-value="Quiero una pizza">🍕 Una pizza</button>
+      <button class="secondary" data-value="Necesito un hotel">🛏️ Un hotel</button>
+    </div>
+    <button class="primary" id="go">ONE CLICK →</button>
+    <p class="status" id="status" aria-live="polite">La ubicación solo se solicita si la necesitás y el navegador pide tu permiso.</p>
+  </section>
+  <section class="card hidden" id="output" aria-live="polite">
+    <span class="tag">PROTOTIPO · SIN PROVEEDORES CONECTADOS</span>
+    <div id="response" class="result"></div>
+    <p class="small" id="location"></p>
+    <p class="small">Esta demo no consulta disponibilidad, no hace reservas y no cobra. La conexión real con proveedores es el siguiente hito.</p>
+  </section>
+  <p class="foot">Versión de demostración · CEUNIA ONECLICK · La contratación siempre requerirá revisar precio y condiciones y confirmar.</p>
+</main>
+<script>
+const requestEl=document.querySelector('#request');
+const statusEl=document.querySelector('#status');
+const output=document.querySelector('#output');
+const responseEl=document.querySelector('#response');
+const locationEl=document.querySelector('#location');
+document.querySelectorAll('[data-value]').forEach(b=>b.addEventListener('click',()=>{requestEl.value=b.dataset.value;requestEl.focus()}));
+function showResult(coords){
+ const req=requestEl.value.trim();
+ if(!req){statusEl.textContent='Escribí qué necesitás, por ejemplo: “un taxi”.';requestEl.focus();return;}
+ output.classList.remove('hidden');
+ responseEl.textContent='Pedido recibido: “'+req+'”. El siguiente paso del producto es conectar proveedores reales compatibles con este pedido.';
+ locationEl.textContent=coords?'Ubicación autorizada para esta prueba: '+coords.latitude.toFixed(5)+', '+coords.longitude.toFixed(5)+'.':'No se compartió ubicación. Podés continuar con una ubicación manual en una próxima versión.';
+ statusEl.textContent='Flujo de demostración completado. No se envió ningún pedido.';
+}
+document.querySelector('#go').addEventListener('click',()=>{
+ statusEl.textContent='Preparando tu pedido…';
+ if(!requestEl.value.trim()){statusEl.textContent='Primero decime qué necesitás.';requestEl.focus();return;}
+ if(!navigator.geolocation){showResult(null);return;}
+ statusEl.textContent='El navegador puede pedir permiso para compartir tu ubicación.';
+ navigator.geolocation.getCurrentPosition(
+  p=>showResult(p.coords),
+  e=>{showResult(null);statusEl.textContent=e.code===1?'No autorizaste la ubicación. El prototipo sigue sin ella.':'No se pudo obtener la ubicación. El prototipo sigue sin ella.';},
+  {enableHighAccuracy:false,timeout:8000,maximumAge:60000}
+ );
+});
+</script>
+</body>
+</html>
