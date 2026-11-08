@@ -1,0 +1,70 @@
+{
+  "schema_version": "1.0",
+  "purpose": "Historical CEUNIA success/reference registry for candidate reproduction, not certified claims.",
+  "policy": "Every record remains reported_not_reproduced until its source notebook/code/data are rerun with fixed splits, baseline parity, and independent validation.",
+  "cases": [
+    {
+      "id": "CEUNICIO-64",
+      "family": "benchmark",
+      "reported_result": "+10.8275%",
+      "reported_significance": "p=0.00005",
+      "reported_sample": "64 configurations/clusters",
+      "status": "reported_not_reproduced",
+      "use_as_reference": "candidate replication target only",
+      "risk_note": "Need inspect target metric, split, multiple-testing control, and exact notebook."
+    },
+    {
+      "id": "OMEGA-COEVOLVE-v2.4.2",
+      "family": "out_of_sample_benchmark",
+      "reported_result": "+3.0639%",
+      "reported_significance": "p=0.04132",
+      "status": "reported_not_reproduced",
+      "use_as_reference": "candidate replication target only",
+      "risk_note": "Need reproduce baseline, evaluation metric, and held-out split."
+    },
+    {
+      "id": "OMEGA-REAL-v2",
+      "family": "out_of_sample_benchmark",
+      "reported_result": "+0.3939%",
+      "status": "reported_not_reproduced",
+      "use_as_reference": "low-effect candidate; test stability and confidence interval first",
+      "risk_note": "Small reported effect may not survive uncertainty or costs."
+    },
+    {
+      "id": "Untitled130-32-seeds",
+      "family": "synthetic_prediction_benchmark",
+      "reported_result": "MAE 0.07820418 baseline vs 0.07638848 CEUNIA_TOTAL; relative MAE improvement 2.3217%; 29/32 seeds better",
+      "status": "source_notebook_present_rerun_required",
+      "use_as_reference": "first reproducibility target",
+      "source": "Untitled130.ipynb",
+      "risk_note": "Synthetic benchmark is not evidence of real-market performance. Audit double invocation of decide() in validation."
+    },
+    {
+      "id": "PA-Watch-Omega6",
+      "family": "out_of_sample_prediction",
+      "reported_result": "MAE 0.2293 vs 0.3000 baseline, reported +23.58% predictive improvement",
+      "reported_significance": "separate PA gain reported -5.57%, p=0.001996",
+      "status": "reported_not_reproduced",
+      "use_as_reference": "separate prediction metric from economic outcome; never combine them",
+      "risk_note": "Clarify definitions, direction, costs, and the apparent difference between predictive error and strategy gain."
+    },
+    {
+      "id": "Untitled132-SP500",
+      "family": "financial_out_of_sample_experiment",
+      "reported_result": "reported gain -0.058%",
+      "reported_significance": "p=0.747",
+      "status": "negative_or_inconclusive_reference",
+      "source": "Untitled132.ipynb",
+      "use_as_reference": "negative control; preserve as a failed/inconclusive case",
+      "risk_note": "Do not market as evidence of improvement."
+    }
+  ],
+  "promotion_gate": [
+    "source code and data identified by immutable hash",
+    "baseline and candidate use identical splits and transaction-cost assumptions",
+    "no training/validation leakage",
+    "report sample size, uncertainty interval, and metric direction",
+    "independent held-out reproduction passes",
+    "retain negative and inconclusive results alongside positive results"
+  ]
+}
