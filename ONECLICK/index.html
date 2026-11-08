@@ -4,7 +4,8 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#10131b">
-<title>ONE CLICK FOR ALL</title>
+<meta name="description" content="ONECLICK. All in one click. Una necesidad, una entrada simple y una mejor decisión.">
+<title>ONECLICK — All in one click.</title>
 <style>
 :root{color-scheme:dark;--bg:#10131b;--panel:#191e29;--line:#30394b;--text:#f4f6fb;--muted:#aab4c7;--accent:#b7f36b}
 *{box-sizing:border-box}body{margin:0;min-height:100vh;background:radial-gradient(ellipse at top,#202a3a 0,var(--bg) 60%);color:var(--text);font:16px/1.5 system-ui,sans-serif;display:grid;place-items:center;padding:22px}
@@ -15,7 +16,7 @@ main{width:min(100%,650px);text-align:center}.eyebrow{font-size:12px;letter-spac
 </head>
 <body>
 <main>
-  <div class="eyebrow">ONE CLICK FOR ALL</div>
+  <div class="eyebrow">ONECLICK · ALL IN ONE CLICK</div>
   <h1 class="title">Todo en<br>un clic.</h1>
   <p class="subtitle">Una necesidad. La mejor opción posible. Sin tener que explicar de más.</p>
   <button class="launch" id="launch" aria-expanded="false" aria-controls="requestPanel">ONE<br>CLICK</button>
@@ -48,7 +49,7 @@ document.querySelector('#speak').addEventListener('click',()=>{
 document.querySelector('#send').addEventListener('click',()=>{
  const request=input.value.trim();if(!request){status.textContent='Decime una sola cosa para empezar.';input.focus();return;}
  result.classList.add('show');
- result.textContent='Pedido recibido: “'+request+'”. En la versión operativa, ONE CLICK comparará opciones disponibles por precio-calidad y cercanía, y mostrará una recomendación para confirmar. Esta demo todavía no consulta proveedores ni ejecuta pedidos.';
+ result.textContent='Pedido recibido: “'+request+'”. En la versión operativa, ONECLICK comparará opciones disponibles por precio-calidad y cercanía, y mostrará una recomendación para confirmar. Esta demo todavía no consulta proveedores ni ejecuta pedidos.';
  status.textContent='Demostración local completada. No se compartió tu pedido ni tu ubicación.';
 });
 </script>
