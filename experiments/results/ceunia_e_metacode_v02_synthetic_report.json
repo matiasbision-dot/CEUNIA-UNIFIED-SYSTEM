@@ -1,0 +1,68 @@
+{
+  "version": "CEUNIA-E-PACR-0.2",
+  "dataset": "synthetic_nonstationary_stream",
+  "seeds": [
+    20261018,
+    20261019,
+    20261020
+  ],
+  "observations_per_seed": 2400,
+  "total_observations": 7200,
+  "results": [
+    {
+      "seed": 20261018,
+      "mean_log_loss": 0.45584814123645545,
+      "baseline_log_loss": 0.821593486491416,
+      "gain": 0.3657453452549605,
+      "first_half": 0.36678048591050755,
+      "second_half": 0.5449157965624034,
+      "mean_potercia": 0.3621828670237971,
+      "mean_metapotercia": 0.0088610827837404,
+      "updates": 2399,
+      "events": 4800,
+      "hash_chain_valid": true,
+      "runtime_seconds": 0.055472255
+    },
+    {
+      "seed": 20261019,
+      "mean_log_loss": 0.47199292062493203,
+      "baseline_log_loss": 0.8353261400997672,
+      "gain": 0.3633332194748352,
+      "first_half": 0.39480801635888285,
+      "second_half": 0.5491778248909812,
+      "mean_potercia": 0.3601119236056316,
+      "mean_metapotercia": 0.006907590583721186,
+      "updates": 2399,
+      "events": 4800,
+      "hash_chain_valid": true,
+      "runtime_seconds": 0.103331803
+    },
+    {
+      "seed": 20261020,
+      "mean_log_loss": 0.4684286283489083,
+      "baseline_log_loss": 0.8403614464228295,
+      "gain": 0.3719328180739212,
+      "first_half": 0.3894154039995882,
+      "second_half": 0.5474418526982285,
+      "mean_potercia": 0.36718542211350985,
+      "mean_metapotercia": 0.00824576039234876,
+      "updates": 2399,
+      "events": 4800,
+      "hash_chain_valid": true,
+      "runtime_seconds": 0.054790253
+    }
+  ],
+  "mean_log_loss": 0.4654232300699719,
+  "mean_baseline_log_loss": 0.8324270243386743,
+  "mean_gain": 0.3670039614418743,
+  "all_hash_chains_valid": true,
+  "all_prediction_before_update": true,
+  "real_world_claim": false,
+  "caveats": [
+    "Only synthetic data.",
+    "Sequential baseline is a weak comparator; this is not evidence of superiority over competitive adaptive models.",
+    "Error rises in second half after concept reversal.",
+    "Potercia and Metapotercia are operational proxies and require formal validation.",
+    "Hash chains detect changes within the log but do not authenticate source truth."
+  ]
+}
