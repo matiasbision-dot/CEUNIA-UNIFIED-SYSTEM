@@ -50,3 +50,9 @@ Las definiciones de esta documentación son una especificación de diseño. Los 
 
 ---
 **CEUNIA Ω | En unión y libertad. Co-razón. Co-herencia.**
+
+
+## Plataforma e integración
+
+- [Arquitectura de plataforma CEUNIA Ω](PLATFORM-ARCHITECTURE.md): orquestación de empresas, modelos de IA, productos, ponderación, consentimiento y despliegue por etapas.
+- [Auditoría del Sprint 72 h](AUDITORIA-SPRINT-72H.md): inventario verificado, niveles de evidencia y brechas técnicas.
