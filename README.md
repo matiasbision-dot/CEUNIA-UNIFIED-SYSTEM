@@ -155,3 +155,11 @@ Run `python -m examples.oneclick_proposal` to inspect a fully assembled review p
 ## ONECLICK: economía de datos vivos
 
 La tesis de producto y arquitectura está documentada en [`docs/ONECLICK-DATA-ECONOMY.md`](docs/ONECLICK-DATA-ECONOMY.md): ONECLICK conecta intención, interpretación en tiempo real, datos autorizados y vigentes, propuesta verificable, confirmación humana, ejecución autorizada y memoria de resultados. Define además principios de privacidad, procedencia, monetización, métricas y niveles de madurez. Es una definición de producto y una hoja de ruta, no una afirmación de que ya exista una red comercial conectada.
+
+
+### ALL I and the living-data economy
+
+- `ALL-I-ONECLICK-DATA-ECONOMY.md` defines ALL I as the proposed integral-intelligence layer, CEUNIA Ω as the meta-observation and learning architecture, and ONECLICK as the intent-to-resolution interface.
+- `core/live_data.py` validates source identity, purpose scope, explicit permission status, observation expiry and quality before a supplied observation may be used for a declared resolution purpose. It does not fetch data or establish legal consent.
+- `examples/live_data_economy.py` demonstrates admissibility using a local fixture, not live provider data. CI executes the demonstration.
+- Economic value is attributed to measured improvements in a real resolution, not raw data collection or simulated activity.
