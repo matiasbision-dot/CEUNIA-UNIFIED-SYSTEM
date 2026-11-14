@@ -43,6 +43,19 @@ class OneClickFlowTests(unittest.TestCase):
         result = self.run_flow(budget_limit=Decimal("10000"))
         self.assertEqual(result.status, "OVER_BUDGET")
 
+
+    def test_catalog_product_must_match_requested_product(self):
+        wrong = CatalogSnapshot("Pizzeria Demo", "Mar del Plata", "ARS",
+            "verified_fixture", self.now - timedelta(seconds=20),
+            (CatalogItem("sushi-1", "Sushi combo", Decimal("12000"), True),))
+        result = self.run_flow(catalog=wrong, product_id="sushi-1")
+        self.assertEqual(result.status, "CANNOT_PREPARE")
+        self.assertEqual(result.reason, "catalog_product_does_not_match_intent")
+
+    def test_float_budget_is_safely_normalized(self):
+        result = self.run_flow(budget_limit=15000.0)
+        self.assertEqual(result.status, "READY_FOR_REVIEW")
+
     def test_unavailable_merchant_blocks(self):
         result = self.run_flow(merchant_available=False)
         self.assertEqual(result.status, "UNAVAILABLE")
