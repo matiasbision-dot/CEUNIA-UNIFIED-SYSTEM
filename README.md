@@ -126,3 +126,5 @@ Run `python -m examples.oneclick_intake` to see the conservative Spanish intake 
 - `core/oneclick_flow.py` returns this proposal only after explicit intent, catalog freshness, product identity, availability, modifier and budget checks pass.
 - The proposal labels its amount as a catalog subtotal, not a guaranteed final checkout total; delivery fees, taxes or other charges must be separately sourced before final confirmation.
 - Every proposal requires user confirmation and remains `submitted=False` and `paid=False`. No live merchant API or payment integration is implied.
+
+Run `python -m examples.oneclick_proposal` to inspect a fully assembled review proposal. The fixture is explicitly simulated and is not a live merchant quote. CI runs this demonstration.
