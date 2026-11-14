@@ -8,7 +8,7 @@ class IntentResolutionTests(unittest.TestCase):
         self.assertEqual(result.quantity, 1)
         self.assertIsNone(result.fulfillment)
         self.assertIn("fulfillment", result.missing)
-        self.assertFalse(result.can_build_draft)
+        self.assertFalse(result.intent_slots_complete)
 
     def test_explicit_quantity_and_delivery(self):
         result = resolve_intent("Quiero 2 pizzas con delivery")
