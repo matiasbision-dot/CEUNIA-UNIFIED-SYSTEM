@@ -128,3 +128,10 @@ Run `python -m examples.oneclick_intake` to see the conservative Spanish intake 
 - Every proposal requires user confirmation and remains `submitted=False` and `paid=False`. No live merchant API or payment integration is implied.
 
 Run `python -m examples.oneclick_proposal` to inspect a fully assembled review proposal. The fixture is explicitly simulated and is not a live merchant quote. CI runs this demonstration.
+
+
+### ONECLICK human confirmation boundary
+
+- `core/confirmation.py` records an explicit confirm/decline decision against the exact proposal ID presented to the user and rejects expired proposals.
+- A confirmation record is not an order submission, merchant acceptance, stock reservation, payment authorization or payment receipt. Those remain separate steps requiring a verified production provider and durable idempotency controls.
+- `examples/oneclick_confirmation.py` demonstrates the boundary with simulated data; CI executes it.
