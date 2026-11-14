@@ -56,3 +56,16 @@ Las definiciones de esta documentación son una especificación de diseño. Los 
 
 - [Arquitectura de plataforma CEUNIA Ω](PLATFORM-ARCHITECTURE.md): orquestación de empresas, modelos de IA, productos, ponderación, consentimiento y despliegue por etapas.
 - [Auditoría del Sprint 72 h](AUDITORIA-SPRINT-72H.md): inventario verificado, niveles de evidencia y brechas técnicas.
+
+
+## Núcleo ejecutable de plataforma (Fase 0)
+
+Se añadieron módulos iniciales y pruebas automatizadas:
+- `core/scoring.py`: ponderación precio/tiempo con normalización min-max, pesos configurables, filtros de disponibilidad/autorización y límites duros.
+- `core/adapters.py`: contrato de adaptador y adaptador de demostración exclusivamente sandbox.
+- `core/consent.py`: puerta explícita de consentimiento, presupuesto e idempotencia.
+- `core/orchestrator.py`: comparación de cotizaciones y decisión de abstenerse o solicitar confirmación; no ejecuta compras.
+- `tests/test_platform_core.py`: pruebas unitarias.
+- `.github/workflows/ceunia-core-tests.yml`: ejecución automática de pruebas en GitHub Actions ante push/PR y manualmente.
+
+**Límite deliberado:** estos módulos no se conectan a PedidosYa, Rappi, Mercado Pago ni otros proveedores reales. Los datos de demostración deben etiquetarse como sandbox y nunca presentarse como cotizaciones reales.
