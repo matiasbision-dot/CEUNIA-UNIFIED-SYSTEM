@@ -77,6 +77,40 @@ class ExecutionGatewayTests(unittest.TestCase):
         self.assertEqual(result.reason, "incomplete_provider_receipt")
         self.assertFalse(result.execution_performed)
 
+
+    def test_rejected_provider_receipt_is_not_reported_as_execution(self):
+        class RejectingAdapter(FakeProductionAdapter):
+            def execute(self, request):
+                self.calls += 1
+                return ExecutionReceipt(request.provider, request.idempotency_key,
+                                        "rejected", "ext-reject")
+        adapter = RejectingAdapter()
+        result = execute_authorized(request(), confirmed=True, provider_record=record(),
+            adapter=adapter, ledger=self.ledger, budget_limit=15000)
+        self.assertEqual(result.status, "REJECTED")
+        self.assertFalse(result.execution_performed)
+        self.assertEqual(len(self.ledger.receipts), 1)
+
+    def test_unknown_provider_receipt_status_requires_reconciliation(self):
+        class PendingAdapter(FakeProductionAdapter):
+            def execute(self, request):
+                self.calls += 1
+                return ExecutionReceipt(request.provider, request.idempotency_key,
+                                        "processing", "ext-pending")
+        adapter = PendingAdapter()
+        result = execute_authorized(request(), confirmed=True, provider_record=record(),
+            adapter=adapter, ledger=self.ledger, budget_limit=15000)
+        self.assertEqual(result.status, "RECONCILIATION_REQUIRED")
+        self.assertFalse(result.execution_performed)
+
+    def test_unsupported_action_is_blocked(self):
+        req = ActionRequest("refund", "Merchant", 12000, "ARS",
+                            "address-confirmed", "order-refund")
+        result = execute_authorized(req, confirmed=True, provider_record=record(),
+            adapter=self.adapter, ledger=self.ledger, budget_limit=15000)
+        self.assertEqual(result.reason, "unsupported_action")
+        self.assertEqual(self.adapter.calls, 0)
+
     def test_adapter_must_be_production_order_capable(self):
         self.adapter.capability = Capability("Merchant", "food", "Argentina", True, False, "production")
         result = execute_authorized(request(), confirmed=True, provider_record=record(),
