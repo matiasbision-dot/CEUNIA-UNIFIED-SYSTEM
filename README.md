@@ -151,3 +151,7 @@ Run `python -m examples.oneclick_proposal` to inspect a fully assembled review p
 - `submit_confirmed_order` is the only gateway in this module that calls an adapter. External execution is denied by default and requires `explicit_external_authorization=True` plus a production capability. The merchant must enforce the supplied idempotency key on its side.
 - No live merchant adapter or credentials are included. The CI demonstration uses a sandbox capability and makes no network calls.
 - A production integration still requires merchant authorization, documented API terms, secure credentials, verified catalog/price retrieval, privacy review, and reconciliation of the merchant response into the SQLite outcome ledger.
+
+## ONECLICK: economía de datos vivos
+
+La tesis de producto y arquitectura está documentada en [`docs/ONECLICK-DATA-ECONOMY.md`](docs/ONECLICK-DATA-ECONOMY.md): ONECLICK conecta intención, interpretación en tiempo real, datos autorizados y vigentes, propuesta verificable, confirmación humana, ejecución autorizada y memoria de resultados. Define además principios de privacidad, procedencia, monetización, métricas y niveles de madurez. Es una definición de producto y una hoja de ruta, no una afirmación de que ya exista una red comercial conectada.
