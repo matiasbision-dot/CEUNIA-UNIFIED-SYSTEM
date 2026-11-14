@@ -8,7 +8,7 @@ import re
 import unicodedata
 
 PRODUCTS = {
-    "pizza": ("pizza",),
+    "pizza": ("pizza", "pizzas"),
     "hamburguesa": ("hamburguesa", "hamburguesas", "burger", "hamburguesa"),
     "sushi": ("sushi",),
     "empanadas": ("empanada", "empanadas"),
