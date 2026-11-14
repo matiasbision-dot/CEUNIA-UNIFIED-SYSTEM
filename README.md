@@ -69,3 +69,15 @@ Se añadieron módulos iniciales y pruebas automatizadas:
 - `.github/workflows/ceunia-core-tests.yml`: ejecución automática de pruebas en GitHub Actions ante push/PR y manualmente.
 
 **Límite deliberado:** estos módulos no se conectan a PedidosYa, Rappi, Mercado Pago ni otros proveedores reales. Los datos de demostración deben etiquetarse como sandbox y nunca presentarse como cotizaciones reales.
+
+
+## Demo ejecutable ONECLICK (sandbox)
+
+Desde la raíz del repositorio, con Python 3.11 o compatible:
+
+```bash
+python -m unittest discover -s tests -v
+python -m examples.oneclick_sandbox
+```
+
+La demo recorre intención → adaptadores simulados → cotizaciones → ponderación → decisión. Usa datos ficticios, no llama a comercios ni realiza pedidos o cobros. El workflow de GitHub Actions ejecuta ambas comprobaciones.
