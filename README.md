@@ -98,3 +98,11 @@ El núcleo valida entradas finitas/no negativas, nombres de proveedor, monedas y
 - `ONECLICK-PROVIDER-STATUS.md`: estados y límites de evidencia.
 
 **Regla de experiencia:** las preferencias inferidas por el sistema no se convierten en detalles del pedido hasta que el usuario las haya expresado o confirmado. Un borrador listo para cotizar no es una compra ni una cotización real.
+
+
+### ONECLICK intent layer
+
+- `core/intent.py` extracts a conservative set of explicit Spanish signals (product, quantity, delivery/pickup).
+- Ambiguous, conflicting or unknown values remain missing and produce clarification questions; no merchant, variant, address, price or inferred preference is fabricated.
+- A complete intent is not automatically a ready order: merchant, catalog, availability, destination and final quote still require verification.
+- The execution gateway accepts only `place_order`, requires production evidence and explicit confirmation, and distinguishes accepted, rejected and unknown provider outcomes. Unknown outcomes require reconciliation, never blind retry.
