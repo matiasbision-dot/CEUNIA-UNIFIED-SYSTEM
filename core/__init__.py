@@ -1,0 +1,1 @@
+"""CEUNIA Ω platform core."""
