@@ -1,7 +1,9 @@
 """Connect explicit ONECLICK intent to a fresh catalog without executing orders."""
 from dataclasses import dataclass
 from datetime import datetime
-from decimal import Decimal
+from decimal import Decimal, InvalidOperation
+import re
+import unicodedata
 from .catalog import CatalogSnapshot
 from .intent import resolve_intent
 from .order_contract import OrderDraft, OrderLine, assess_order_readiness
@@ -50,13 +52,28 @@ def prepare_order(text: str, *, catalog: CatalogSnapshot, product_id: str,
     if catalog.region.casefold().strip() == "" or not merchant_available:
         return IntakeResult("UNAVAILABLE", reason="merchant_unavailable_or_region_missing")
     try:
+        item = catalog.select_item(product_id, now=now,
+                                   max_age_seconds=max_catalog_age_seconds)
+        normalized_name = unicodedata.normalize("NFKD", item.name.casefold())
+        normalized_name = "".join(ch for ch in normalized_name if not unicodedata.combining(ch))
+        aliases = {
+            "pizza": ("pizza",), "hamburguesa": ("hamburguesa", "burger"),
+            "sushi": ("sushi",), "empanadas": ("empanada",),
+            "cafe": ("cafe",), "agua": ("agua",),
+        }
+        if not any(re.search(r"\\b" + re.escape(alias) + r"\\b", normalized_name)
+                   for alias in aliases[intent.product]):
+            return IntakeResult("CANNOT_PREPARE", reason="catalog_product_does_not_match_intent")
         line = catalog.build_order_line(product_id, quantity=intent.quantity,
             now=now, max_age_seconds=max_catalog_age_seconds, modifiers=modifiers)
-    except ValueError as exc:
+    except (ValueError, KeyError) as exc:
         return IntakeResult("CANNOT_PREPARE", reason=str(exc))
-    priced = PricedLine(line, catalog.items[[x.product_id for x in catalog.items].index(product_id)].price,
-                        catalog.items[[x.product_id for x in catalog.items].index(product_id)].price * intent.quantity)
+    priced = PricedLine(line, item.price, item.price * intent.quantity)
     if budget_limit is not None:
+        try:
+            budget_limit = Decimal(str(budget_limit))
+        except (InvalidOperation, ValueError):
+            return IntakeResult("CANNOT_PREPARE", reason="invalid_budget_limit")
         if not budget_limit.is_finite() or budget_limit < 0:
             return IntakeResult("CANNOT_PREPARE", reason="invalid_budget_limit")
         if priced.line_total > budget_limit:
