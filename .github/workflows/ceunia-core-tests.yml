@@ -29,3 +29,5 @@ jobs:
         run: python -m examples.oneclick_memory
       - name: Run ONECLICK merchant boundary demonstration
         run: python -m examples.oneclick_merchant_boundary
+      - name: Run living-data economy demonstration
+        run: python -m examples.live_data_economy
