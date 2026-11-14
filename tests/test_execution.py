@@ -65,6 +65,18 @@ class ExecutionGatewayTests(unittest.TestCase):
             adapter=self.adapter, ledger=self.ledger, budget_limit=100)
         self.assertEqual(result.reason, "budget_limit_exceeded")
         self.assertEqual(self.adapter.calls, 0)
+
+    def test_incomplete_receipt_requires_reconciliation(self):
+        class BadReceiptAdapter(FakeProductionAdapter):
+            def execute(self, request):
+                self.calls += 1
+                return ExecutionReceipt(request.provider, request.idempotency_key, "accepted", None)
+        adapter = BadReceiptAdapter()
+        result = execute_authorized(request(), confirmed=True, provider_record=record(),
+            adapter=adapter, ledger=self.ledger, budget_limit=15000)
+        self.assertEqual(result.reason, "incomplete_provider_receipt")
+        self.assertFalse(result.execution_performed)
+
     def test_adapter_must_be_production_order_capable(self):
         self.adapter.capability = Capability("Merchant", "food", "Argentina", True, False, "production")
         result = execute_authorized(request(), confirmed=True, provider_record=record(),
