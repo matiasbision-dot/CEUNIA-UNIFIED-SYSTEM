@@ -111,3 +111,10 @@ El núcleo valida entradas finitas/no negativas, nombres de proveedor, monedas y
 ### Runnable intent demo
 
 Run `python -m examples.oneclick_intake` to see the conservative Spanish intake flow. The CI workflow runs this demonstration alongside the sandbox quote comparison.
+
+
+### ONECLICK prepared-order flow
+
+- `core/oneclick_flow.py` joins explicit Spanish intent, a fresh catalog snapshot, product identity, modifiers, delivery/pickup and budget into a priced order for human review.
+- It fails closed on ambiguous intent, stale/unavailable catalog data, product mismatch, missing destination and exceeded budget.
+- The output is `READY_FOR_REVIEW`, never a submitted order or payment. No live merchant API is connected by this module.
