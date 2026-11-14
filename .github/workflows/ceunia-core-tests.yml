@@ -31,3 +31,5 @@ jobs:
         run: python -m examples.oneclick_merchant_boundary
       - name: Run living-data economy demonstration
         run: python -m examples.live_data_economy
+      - name: Run economic trial contract demonstration
+        run: python -m examples.economic_trial_contract
