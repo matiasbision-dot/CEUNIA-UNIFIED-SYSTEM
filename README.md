@@ -106,3 +106,8 @@ El núcleo valida entradas finitas/no negativas, nombres de proveedor, monedas y
 - Ambiguous, conflicting or unknown values remain missing and produce clarification questions; no merchant, variant, address, price or inferred preference is fabricated.
 - A complete intent is not automatically a ready order: merchant, catalog, availability, destination and final quote still require verification.
 - The execution gateway accepts only `place_order`, requires production evidence and explicit confirmation, and distinguishes accepted, rejected and unknown provider outcomes. Unknown outcomes require reconciliation, never blind retry.
+
+
+### Runnable intent demo
+
+Run `python -m examples.oneclick_intake` to see the conservative Spanish intake flow. The CI workflow runs this demonstration alongside the sandbox quote comparison.
