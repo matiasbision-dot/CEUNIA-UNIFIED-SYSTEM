@@ -29,7 +29,7 @@ core/execution.py defines a fail-closed gateway. It requires:
 5. A durable ledger whose reserve operation is atomic and whose outcomes are persisted.
 6. A provider receipt matching the provider and idempotency key.
 
-The repository includes only fake test adapters and an in-memory test ledger. These are not suitable for real purchases. A timeout or malformed receipt returns RECONCILIATION_REQUIRED; the idempotency key remains reserved to prevent blind retries.
+The repository includes fake test adapters for tests and a SQLite ledger suitable only for a single-node integration after operational hardening. It is not a complete production payment or order system. A timeout or malformed receipt returns RECONCILIATION_REQUIRED; the idempotency key remains reserved to prevent blind retries.
 
 ## Current truthful boundary
 
