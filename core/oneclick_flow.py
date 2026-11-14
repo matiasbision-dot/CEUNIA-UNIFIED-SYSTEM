@@ -61,7 +61,7 @@ def prepare_order(text: str, *, catalog: CatalogSnapshot, product_id: str,
             "sushi": ("sushi",), "empanadas": ("empanada",),
             "cafe": ("cafe",), "agua": ("agua",),
         }
-        if not any(re.search(r"\\b" + re.escape(alias) + r"\\b", normalized_name)
+        if not any(re.search(r"\b" + re.escape(alias) + r"\b", normalized_name)
                    for alias in aliases[intent.product]):
             return IntakeResult("CANNOT_PREPARE", reason="catalog_product_does_not_match_intent")
         line = catalog.build_order_line(product_id, quantity=intent.quantity,
