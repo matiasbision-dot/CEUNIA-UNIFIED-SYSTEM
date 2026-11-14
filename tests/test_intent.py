@@ -15,7 +15,7 @@ class IntentResolutionTests(unittest.TestCase):
         self.assertEqual(result.product, "pizza")
         self.assertEqual(result.quantity, 2)
         self.assertEqual(result.fulfillment, "delivery")
-        self.assertTrue(result.can_build_draft)
+        self.assertTrue(result.intent_slots_complete)
 
     def test_pickup_and_accent_normalization(self):
         result = resolve_intent("Quiero café para retirar")
