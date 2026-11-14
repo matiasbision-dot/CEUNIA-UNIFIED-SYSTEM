@@ -10,6 +10,7 @@ class Offer:
     minutes: float
     available: bool = True
     authorized: bool = True
+    currency: str = "ARS"
 
 @dataclass(frozen=True)
 class ScoredOffer:
