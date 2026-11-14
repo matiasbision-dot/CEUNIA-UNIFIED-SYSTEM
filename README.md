@@ -118,3 +118,11 @@ Run `python -m examples.oneclick_intake` to see the conservative Spanish intake 
 - `core/oneclick_flow.py` joins explicit Spanish intent, a fresh catalog snapshot, product identity, modifiers, delivery/pickup and budget into a priced order for human review.
 - It fails closed on ambiguous intent, stale/unavailable catalog data, product mismatch, missing destination and exceeded budget.
 - The output is `READY_FOR_REVIEW`, never a submitted order or payment. No live merchant API is connected by this module.
+
+
+### ONECLICK review proposal
+
+- `core/proposal.py` creates a deterministic proposal ID from the selected catalog evidence, merchant, product, quantity, modifiers, fulfillment, destination reference, price, currency and validity window.
+- `core/oneclick_flow.py` returns this proposal only after explicit intent, catalog freshness, product identity, availability, modifier and budget checks pass.
+- The proposal labels its amount as a catalog subtotal, not a guaranteed final checkout total; delivery fees, taxes or other charges must be separately sourced before final confirmation.
+- Every proposal requires user confirmation and remains `submitted=False` and `paid=False`. No live merchant API or payment integration is implied.
