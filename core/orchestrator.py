@@ -31,7 +31,7 @@ def compare_providers(intent: str, region: str, adapters: list[ProviderAdapter],
     currencies = {q.currency for q in available}
     if len(currencies) > 1:
         return Decision("CONSULT", "currency_conversion_required", ())
-    offers = [Offer(q.provider, q.price, q.eta_minutes, q.available, True) for q in quotes]
+    offers = [Offer(q.provider, q.price, q.eta_minutes, q.available, True, q.currency) for q in quotes]
     ranked = score_offers(offers, price_weight=price_weight, time_weight=time_weight)
     if not ranked:
         return Decision("ABSTAIN", "no_feasible_quotes", ())
