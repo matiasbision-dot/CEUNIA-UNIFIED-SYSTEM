@@ -60,5 +60,10 @@ def execute_authorized(request: ActionRequest, *, confirmed: bool,
         return ExecutionDecision("RECONCILIATION_REQUIRED", "receipt_provider_mismatch")
     if receipt.idempotency_key != request.idempotency_key:
         return ExecutionDecision("RECONCILIATION_REQUIRED", "receipt_idempotency_mismatch")
-    ledger.record(receipt)
+    if not receipt.status.strip() or not receipt.external_reference or not receipt.external_reference.strip():
+        return ExecutionDecision("RECONCILIATION_REQUIRED", "incomplete_provider_receipt")
+    try:
+        ledger.record(receipt)
+    except Exception:
+        return ExecutionDecision("RECONCILIATION_REQUIRED", "receipt_persistence_failed")
     return ExecutionDecision("EXECUTED", "provider_receipt_recorded", receipt, True)
