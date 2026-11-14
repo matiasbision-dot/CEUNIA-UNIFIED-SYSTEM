@@ -81,3 +81,10 @@ python -m examples.oneclick_sandbox
 ```
 
 La demo recorre intención → adaptadores simulados → cotizaciones → ponderación → decisión. Usa datos ficticios, no llama a comercios ni realiza pedidos o cobros. El workflow de GitHub Actions ejecuta ambas comprobaciones.
+
+
+## Endurecimiento y verificación continua
+
+El núcleo valida entradas finitas/no negativas, nombres de proveedor, monedas y consistencia de entorno sandbox. Las cotizaciones de distintas monedas fuerzan consulta en lugar de compararse directamente. La moneda se conserva hasta la oferta ordenada. La autorización valida importe, presupuesto, moneda, clave de idempotencia y confirmación explícita.
+
+**CI verificado:** GitHub Actions ejecutó correctamente las pruebas unitarias y la demo ONECLICK sandbox en el commit `909385058c80bc2fcfb6b69682a5e43feb11b64d`. Ejecución: https://github.com/matiasbision-dot/CEUNIA-UNIFIED-SYSTEM/actions/runs/43555022755
