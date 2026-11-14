@@ -25,3 +25,5 @@ jobs:
         run: python -m examples.oneclick_proposal
       - name: Run ONECLICK human confirmation demonstration
         run: python -m examples.oneclick_confirmation
+      - name: Run ONECLICK SQLite memory demonstration
+        run: python -m examples.oneclick_memory
