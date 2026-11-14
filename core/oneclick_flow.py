@@ -7,6 +7,7 @@ import unicodedata
 from .catalog import CatalogSnapshot
 from .intent import resolve_intent
 from .order_contract import OrderDraft, OrderLine, assess_order_readiness
+from .proposal import OrderProposal, create_proposal
 
 @dataclass(frozen=True)
 class PricedLine:
@@ -43,7 +44,7 @@ def prepare_order(text: str, *, catalog: CatalogSnapshot, product_id: str,
         return IntakeResult("NEEDS_CLARIFICATION", tuple(questions), reason="product_not_unambiguous")
     if intent.quantity is None:
         return IntakeResult("NEEDS_CLARIFICATION", tuple(questions), reason="quantity_missing")
-    if fulfillment not in ("delivery", "pickup"):
+    if intent.fulfillment is not None and intent.fulfillment != fulfillment:\n        return IntakeResult("NEEDS_CLARIFICATION", ("¿Confirmás entrega o retiro?",),\n                            reason="fulfillment_conflicts_with_user_intent")\n    if fulfillment not in ("delivery", "pickup"):
         return IntakeResult("NEEDS_CLARIFICATION", ("¿Con entrega o retiro?",),
                             reason="explicit_fulfillment_required")
     if fulfillment == "delivery" and not (destination_id and destination_id.strip()):
