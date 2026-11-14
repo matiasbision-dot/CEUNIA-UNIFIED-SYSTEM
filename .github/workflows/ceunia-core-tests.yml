@@ -27,3 +27,5 @@ jobs:
         run: python -m examples.oneclick_confirmation
       - name: Run ONECLICK SQLite memory demonstration
         run: python -m examples.oneclick_memory
+      - name: Run ONECLICK merchant boundary demonstration
+        run: python -m examples.oneclick_merchant_boundary
