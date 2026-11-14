@@ -29,6 +29,18 @@ class OneClickFlowTests(unittest.TestCase):
         self.assertFalse(result.prepared_order.draft.confirmed)
         self.assertEqual(result.reason, "not_submitted_not_paid")
 
+
+    def test_text_modality_cannot_be_overridden_silently(self):
+        result = self.run_flow(text="Quiero una pizza para retirar")
+        self.assertEqual(result.status, "NEEDS_CLARIFICATION")
+        self.assertEqual(result.reason, "fulfillment_conflicts_with_user_intent")
+
+    def test_ready_flow_returns_review_proposal(self):
+        result = self.run_flow()
+        self.assertIsNotNone(result.proposal)
+        self.assertEqual(result.proposal.subtotal, Decimal("12000"))
+        self.assertFalse(result.proposal.submitted)
+
     def test_missing_fulfillment_asks_one_question(self):
         result = self.run_flow(fulfillment=None)
         self.assertEqual(result.status, "NEEDS_CLARIFICATION")
