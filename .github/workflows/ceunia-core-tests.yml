@@ -23,3 +23,5 @@ jobs:
         run: python -m examples.oneclick_intake
       - name: Run ONECLICK proposal review demonstration
         run: python -m examples.oneclick_proposal
+      - name: Run ONECLICK human confirmation demonstration
+        run: python -m examples.oneclick_confirmation
