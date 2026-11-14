@@ -1,89 +1,52 @@
-CEUNIA Metrics
+# CEUNIA Ω — Métricas y medición evolutiva
 
-Core Idea
+CEUNIA evalúa inteligencia no solo por rendimiento, sino también por coherencia, adaptabilidad, seguridad, autonomía y capacidad de corregir su trayectoria con evidencia.
 
-CEUNIA does not evaluate intelligence only by performance, but by coherence, adaptability, and evolutionary potential.
+La especificación transversal y operativa está en [MEDICION-OMEGA.md](MEDICION-OMEGA.md).
 
----
+## Ciclo de medición
 
-1. Coherence (C)
-fix coherence metric definition
+**Intención → Comprensión → Decisión → Resolución → Medición → Aprendizaje → Evolución.**
 
-Formalization:
-C = alignment(trajectory, decisions, memory, outcomes)
+La medición incluye acciones y no acciones: actuar, esperar, consultar, solicitar autorización y abstenerse.
 
-Range:
-0 → incoherent system
-1 → fully coherent system
+## Indicadores arquitectónicos exploratorios
 
----
+### Coherencia (C)
 
-2. Potercia (P)
+Alineación entre trayectoria, decisiones, memoria y resultados. La definición de cálculo debe establecerse para cada caso de uso antes de comparar versiones.
 
-Definition:
-Dynamic capacity of a system to accelerate or correct its trajectory based on deviation detection.
+### Potercia (P)
 
-P = capability_of_adaptation / time_to_correct
+Capacidad dinámica de corregir o adaptar una trayectoria ante una desviación, considerando el tiempo y el costo de corrección.
 
-Interpretation:
-Higher Potercia = faster evolutionary correction
+### Puntos de Revelación Evolutiva (PRE)
 
----
+Eventos que aportan información nueva y abren alternativas de decisión. Deben documentarse mediante casos observables.
 
-3. PRE (Points of Evolutionary Revelation)
+### Serendipia (S)
 
-Definition:
-Events that reveal hidden structure or new decision space within a system.
+Descubrimientos no planificados que resultan útiles y verificables.
 
-PRE = partial_result + new_information + emergent_possibility
+### MetaSerendipia (MS)
 
-Effect:
-Increases potential state-space of the system
+Capacidad de diseñar condiciones que favorezcan descubrimientos útiles sin inducir ruido, sesgo o acciones innecesarias.
 
----
+### Relación Coherencia–Potercia (CPR)
 
-4. Serendipia (S)
+Relación exploratoria entre estabilidad y velocidad de adaptación. No debe interpretarse como índice validado hasta definir escalas, pesos y pruebas.
 
-Definition:
-Unplanned discovery emerging from system interaction.
+### Índice Global de Evolución (GEI)
 
-S = unexpected_useful_outcome / total_interactions
+Combinación propuesta de dimensiones de coherencia, Potercia, PRE, Serendipia y MetaSerendipia. Los pesos y el método requieren calibración y validación por dominio.
 
----
+## Reglas de rigor
 
-5. Metaserendipia (MS)
+- No publicar puntuaciones sin método, denominador, conjunto de casos y ventana temporal.
+- Separar métricas exploratorias de indicadores operativos validados.
+- No confundir confianza del modelo con verdad ni evidencia.
+- Desagregar resultados por riesgo y tipo de tarea.
+- Registrar abstenciones adecuadas para no premiar la activación innecesaria.
+- Comparar versiones en condiciones equivalentes y comprobar regresiones.
 
-Definition:
-System ability to generate conditions that increase probability of serendipia.
-
-MS = optimization_of_discovery_conditions
-
----
-
-6. Coherence–Potercia Relation (CPR)
-
-Definition:
-Relationship between stability and adaptive speed.
-
-CPR = C × P
-
-Interpretation:
-
-- High C + High P → stable evolution
-- Low C + High P → chaotic adaptation
-- High C + Low P → rigid system
-- Low C + Low P → collapse risk
-
----
-
-7. Global Evolution Index (GEI)
-
-Combined system health:
-
-GEI = weighted(C, P, PRE, S, MS)
-
----
-
-Purpose
-
-These metrics define CEUNIA not as a static architecture, but as an evolving evaluative system capable of measuring its own trajectory.
+Los indicadores de implementación, registro mínimo, revisión humana y condiciones de no activación se detallan en [MEDICION-OMEGA.md](MEDICION-OMEGA.md).
