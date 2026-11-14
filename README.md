@@ -135,3 +135,11 @@ Run `python -m examples.oneclick_proposal` to inspect a fully assembled review p
 - `core/confirmation.py` records an explicit confirm/decline decision against the exact proposal ID presented to the user and rejects expired proposals.
 - A confirmation record is not an order submission, merchant acceptance, stock reservation, payment authorization or payment receipt. Those remain separate steps requiring a verified production provider and durable idempotency controls.
 - `examples/oneclick_confirmation.py` demonstrates the boundary with simulated data; CI executes it.
+
+
+### ONECLICK durable memory (SQLite)
+
+- `core/confirmation_store.py` persists immutable proposal snapshots, one explicit decision per proposal, and sourced outcome events.
+- Proposal saves, repeated identical decisions, and repeated outcome events are idempotent. Conflicting decisions or reused event keys with different payloads are rejected.
+- The store is a local evidence ledger. It does not submit orders, contact merchants, reserve stock or process payments. Production use requires controlled database access, backups, retention policy and privacy review.
+- `examples/oneclick_memory.py` reopens the SQLite database and demonstrates persisted history using simulated data; CI executes it.
