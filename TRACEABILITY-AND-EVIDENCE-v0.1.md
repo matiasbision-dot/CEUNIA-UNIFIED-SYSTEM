@@ -18,7 +18,7 @@ Definir un registro verificable del ciclo de vida de una prueba: autorización, 
 - `MERCHANT_RESPONSE_RECEIVED` (solo con respuesta externa)
 - `RECEIPT_RECORDED` (solo con comprobante)
 - `OUTCOME_VERIFIED`
-- `ECONOMIC_MEASUREMENT_RECORDED)
+- `ECONOMIC_MEASUREMENT_RECORDED
 - `AUTHORIZATION_REVOKED`
 - `ABSTENTION_RECORDED`
 
