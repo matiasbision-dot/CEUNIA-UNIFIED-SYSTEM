@@ -4,6 +4,7 @@ For multi-instance production, replace with a transactional shared database.
 """
 import json
 import sqlite3
+from contextlib import contextmanager
 from pathlib import Path
 from .execution import ExecutionReceipt
 
@@ -21,11 +22,15 @@ class SQLiteExecutionLedger:
                 )
             """)
 
+    @contextmanager
     def _connect(self):
         db = sqlite3.connect(self.database_path, timeout=10, isolation_level=None)
-        db.execute("PRAGMA journal_mode=WAL")
-        db.execute("PRAGMA busy_timeout=10000")
-        return db
+        try:
+            db.execute("PRAGMA journal_mode=WAL")
+            db.execute("PRAGMA busy_timeout=10000")
+            yield db
+        finally:
+            db.close()
 
     def reserve(self, key: str, fingerprint: str) -> bool:
         if not key or not key.strip() or not fingerprint:
