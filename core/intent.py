@@ -29,7 +29,7 @@ class IntentResolution:
     questions: tuple[str, ...]
 
     @property
-    def can_build_draft(self) -> bool:
+    def intent_slots_complete(self) -> bool:
         return self.product is not None and self.quantity is not None and self.fulfillment is not None
 
 def _normalize(value: str) -> str:
