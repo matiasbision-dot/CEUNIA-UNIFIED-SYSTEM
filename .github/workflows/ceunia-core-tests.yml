@@ -21,3 +21,5 @@ jobs:
         run: python -m examples.oneclick_sandbox
       - name: Run ONECLICK intent intake demonstration
         run: python -m examples.oneclick_intake
+      - name: Run ONECLICK proposal review demonstration
+        run: python -m examples.oneclick_proposal
