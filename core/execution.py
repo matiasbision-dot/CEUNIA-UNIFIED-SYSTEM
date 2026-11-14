@@ -34,6 +34,8 @@ def execute_authorized(request: ActionRequest, *, confirmed: bool,
                        ledger: ExecutionLedger,
                        budget_limit: float | None = None) -> ExecutionDecision:
     """Execute only with explicit confirmation, production evidence and an atomic ledger."""
+    if request.action != "place_order":
+        return ExecutionDecision("ABSTAIN", "unsupported_action")
     capability = adapter.capability
     if provider_record.provider.casefold() != request.provider.casefold():
         return ExecutionDecision("ABSTAIN", "provider_record_mismatch")
@@ -48,22 +50,33 @@ def execute_authorized(request: ActionRequest, *, confirmed: bool,
     ok, reason = authorize_action(request, confirmed=confirmed, budget_limit=budget_limit)
     if not ok:
         return ExecutionDecision("CONSULT", reason)
-    fingerprint = "|".join((request.action, request.provider, str(request.amount),
-                            request.currency, request.destination))
+    import json
+    fingerprint = json.dumps({
+        "action": request.action, "provider": request.provider,
+        "amount": request.amount, "currency": request.currency,
+        "destination": request.destination,
+    }, sort_keys=True, separators=(",", ":"))
     if not ledger.reserve(request.idempotency_key, fingerprint):
         return ExecutionDecision("ABSTAIN", "duplicate_or_conflicting_idempotency_key")
     try:
         receipt = adapter.execute(request)
     except Exception:
         return ExecutionDecision("RECONCILIATION_REQUIRED", "provider_execution_outcome_unknown")
+    if not isinstance(receipt, ExecutionReceipt):
+        return ExecutionDecision("RECONCILIATION_REQUIRED", "invalid_provider_receipt")
     if receipt.provider.casefold() != request.provider.casefold():
         return ExecutionDecision("RECONCILIATION_REQUIRED", "receipt_provider_mismatch")
     if receipt.idempotency_key != request.idempotency_key:
         return ExecutionDecision("RECONCILIATION_REQUIRED", "receipt_idempotency_mismatch")
     if not receipt.status.strip() or not receipt.external_reference or not receipt.external_reference.strip():
         return ExecutionDecision("RECONCILIATION_REQUIRED", "incomplete_provider_receipt")
+    status = receipt.status.strip().casefold()
     try:
         ledger.record(receipt)
     except Exception:
         return ExecutionDecision("RECONCILIATION_REQUIRED", "receipt_persistence_failed")
+    if status in {"rejected", "declined", "failed", "cancelled"}:
+        return ExecutionDecision("REJECTED", "provider_rejected_order", receipt, False)
+    if status not in {"accepted", "confirmed", "succeeded", "completed"}:
+        return ExecutionDecision("RECONCILIATION_REQUIRED", "unknown_provider_receipt_status", receipt, False)
     return ExecutionDecision("EXECUTED", "provider_receipt_recorded", receipt, True)
