@@ -143,3 +143,11 @@ Run `python -m examples.oneclick_proposal` to inspect a fully assembled review p
 - Proposal saves, repeated identical decisions, and repeated outcome events are idempotent. Conflicting decisions or reused event keys with different payloads are rejected.
 - The store is a local evidence ledger. It does not submit orders, contact merchants, reserve stock or process payments. Production use requires controlled database access, backups, retention policy and privacy review.
 - `examples/oneclick_memory.py` reopens the SQLite database and demonstrates persisted history using simulated data; CI executes it.
+
+
+### ONECLICK merchant adapter boundary
+
+- `core/merchant_adapter.py` defines a typed adapter contract and validates proposal identity, matching human confirmation, expiry, merchant identity and region, production environment, order-submission capability, remote idempotency support, and explicit external authorization.
+- `submit_confirmed_order` is the only gateway in this module that calls an adapter. External execution is denied by default and requires `explicit_external_authorization=True` plus a production capability. The merchant must enforce the supplied idempotency key on its side.
+- No live merchant adapter or credentials are included. The CI demonstration uses a sandbox capability and makes no network calls.
+- A production integration still requires merchant authorization, documented API terms, secure credentials, verified catalog/price retrieval, privacy review, and reconciliation of the merchant response into the SQLite outcome ledger.
