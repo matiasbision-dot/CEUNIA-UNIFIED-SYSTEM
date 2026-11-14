@@ -30,6 +30,7 @@ class IntakeResult:
     questions: tuple[str, ...] = ()
     prepared_order: PreparedOrder | None = None
     reason: str = ""
+    proposal: OrderProposal | None = None
 
 def prepare_order(text: str, *, catalog: CatalogSnapshot, product_id: str,
                   fulfillment: str | None, destination_id: str | None,
@@ -93,5 +94,17 @@ def prepare_order(text: str, *, catalog: CatalogSnapshot, product_id: str,
         return IntakeResult("NOT_READY", reason=",".join(readiness.missing))
     prepared = PreparedOrder(draft, (priced,), priced.line_total, catalog.currency,
                              catalog.source, catalog.observed_at)
+    try:
+        proposal = create_proposal(
+            merchant=catalog.provider, region=catalog.region,
+            product_id=line.product_id, product_name=line.display_name,
+            quantity=line.quantity, modifiers=line.modifiers,
+            fulfillment=fulfillment, destination_id=destination_id,
+            unit_price=item.price, currency=catalog.currency,
+            catalog_source=catalog.source,
+            catalog_observed_at=catalog.observed_at, created_at=now,
+            max_age_seconds=max_catalog_age_seconds)
+    except ValueError as exc:
+        return IntakeResult("CANNOT_PREPARE", reason=str(exc))
     return IntakeResult("READY_FOR_REVIEW", prepared_order=prepared,
-                        reason="not_submitted_not_paid")
+                        reason="not_submitted_not_paid", proposal=proposal)
