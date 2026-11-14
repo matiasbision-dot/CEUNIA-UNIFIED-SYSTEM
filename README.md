@@ -88,3 +88,13 @@ La demo recorre intención → adaptadores simulados → cotizaciones → ponder
 El núcleo valida entradas finitas/no negativas, nombres de proveedor, monedas y consistencia de entorno sandbox. Las cotizaciones de distintas monedas fuerzan consulta en lugar de compararse directamente. La moneda se conserva hasta la oferta ordenada. La autorización valida importe, presupuesto, moneda, clave de idempotencia y confirmación explícita.
 
 **CI verificado:** GitHub Actions ejecutó correctamente las pruebas unitarias y la demo ONECLICK sandbox en el commit `909385058c80bc2fcfb6b69682a5e43feb11b64d`. Ejecución: https://github.com/matiasbision-dot/CEUNIA-UNIFIED-SYSTEM/actions/runs/43555022755
+
+
+## ONECLICK: contrato de pedido y acceso a proveedores
+
+- `core/order_contract.py`: borrador de pedido tipado; exige producto identificado, comercio, región y modalidad. Para entrega exige destino seleccionado. No presupone catálogo ni disponibilidad.
+- `assess_order_readiness()`: impide avanzar a cotización si catálogo o disponibilidad del comercio no fueron verificados.
+- `ONECLICK-API-ACCESS-MAP.md`: investigación de documentación oficial y límites de acceso de PedidosYa, Rappi y Uber Direct.
+- `ONECLICK-PROVIDER-STATUS.md`: estados y límites de evidencia.
+
+**Regla de experiencia:** las preferencias inferidas por el sistema no se convierten en detalles del pedido hasta que el usuario las haya expresado o confirmado. Un borrador listo para cotizar no es una compra ni una cotización real.
