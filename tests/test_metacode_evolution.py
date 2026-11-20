@@ -29,7 +29,7 @@ class MetaCodeEvolutionTests(unittest.TestCase):
 
     def test_reproduced_boolean_and_arbitrary_hash_do_not_upgrade_evidence(self):
         result = evaluate_experiment(self.base_report(
-            reproduced=True, source_hashes=["abc"]
+            reproduced=True, source_hashes=["a" * 64]
         ))
         self.assertEqual(result.evidence_grade, "REPORTED_RESULT_NOT_INDEPENDENTLY_REPRODUCED")
         self.assertEqual(result.point_albedrio, "REPRODUCE_ON_EXISTING_ARTIFACTS")
