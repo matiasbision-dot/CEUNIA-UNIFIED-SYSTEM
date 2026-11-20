@@ -1,0 +1,49 @@
+{
+  "version": "CEUNIA-E-PACR-0.3",
+  "dataset": "synthetic_nonstationary_stream",
+  "seed_start": 20261018,
+  "seeds": 20,
+  "observations_per_seed": 3000,
+  "total_observations": 60000,
+  "concept_reversal_at_halfway": true,
+  "models": {
+    "single_online_logistic": {
+      "mean_log_loss_mean": 0.4536576212175747,
+      "mean_log_loss_sd": 0.006039841792278966,
+      "first_half_log_loss_mean": 0.38073090746824567,
+      "second_half_log_loss_mean": 0.5265843349669037,
+      "post_switch_100_log_loss_mean": 1.6627184927791216
+    },
+    "adaptive_ensemble": {
+      "mean_log_loss_mean": 0.44633070896632343,
+      "mean_log_loss_sd": 0.006984397891536119,
+      "first_half_log_loss_mean": 0.37608258323351906,
+      "second_half_log_loss_mean": 0.5165788346991278,
+      "post_switch_100_log_loss_mean": 1.4311966144328103,
+      "paired_gain_vs_single_mean": 0.0073269122512513,
+      "seeds_better_than_single": 20
+    },
+    "drift_aware_ensemble": {
+      "mean_log_loss_mean": 0.39556649791148496,
+      "mean_log_loss_sd": 0.013028228489605389,
+      "first_half_log_loss_mean": 0.36379864543579793,
+      "second_half_log_loss_mean": 0.427334350387172,
+      "post_switch_100_log_loss_mean": 1.276992847692082,
+      "paired_gain_vs_single_mean": 0.058091123306089745,
+      "seeds_better_than_single": 20
+    }
+  },
+  "drift_detection_events_mean": 15.7,
+  "all_hash_chains_valid": true,
+  "runtime_seconds": 6.87094251000002,
+  "report_hash": "6ceb0ae05d7771167ce1cb2424c4b3a5897ade9c94b82cd31e5308ee3559f75f",
+  "metrics_status": "Potercia and Metapotercia are provisional operational proxies",
+  "real_world_predictive_claim": false,
+  "limitations": [
+    "Synthetic data only.",
+    "Fixed concept reversal is a known benchmark, not a live-data test.",
+    "Drift detector threshold is preselected and not tuned on a holdout.",
+    "Ablations and confidence intervals are still needed.",
+    "Hash chain does not authenticate source truth."
+  ]
+}
