@@ -45,12 +45,43 @@ def _finite_number(value: Any) -> Optional[float]:
     return number
 
 
+def _valid_sha256(value: Any) -> bool:
+    if not isinstance(value, str) or len(value) != 64:
+        return False
+    try:
+        int(value, 16)
+    except ValueError:
+        return False
+    return True
+
+
+def _has_reproduction_metadata(reproduction: Any) -> bool:
+    """Check metadata completeness only; this does not independently audit it."""
+    if not isinstance(reproduction, Mapping):
+        return False
+    artifacts = reproduction.get("artifacts")
+    return bool(
+        reproduction.get("protocol_id")
+        and reproduction.get("independent_reviewer")
+        and reproduction.get("run_id")
+        and isinstance(artifacts, list)
+        and artifacts
+        and all(
+            isinstance(item, Mapping)
+            and isinstance(item.get("path"), str)
+            and item.get("path").strip()
+            and _valid_sha256(item.get("sha256"))
+            for item in artifacts
+        )
+    )
+
+
 def evaluate_experiment(report: Mapping[str, Any]) -> EvolutionDecision:
-    """Evaluate a report without upgrading its evidence status by assumption.
+    """Evaluate a report without upgrading evidence from a self-reported flag.
 
     Required keys: experiment_id, domain, baseline_mae, model_mae.
-    Optional: walkforward_mae, test_n, source, period, reproduced,
-    source_hashes, notes.
+    Optional reproduction metadata must include protocol_id, independent_reviewer,
+    run_id and artifacts [{path, sha256}]. Completeness is not an audit.
     """
     experiment_id = str(report.get("experiment_id", "")).strip()
     domain = str(report.get("domain", "")).strip().lower()
@@ -63,6 +94,17 @@ def evaluate_experiment(report: Mapping[str, Any]) -> EvolutionDecision:
     test_n = report.get("test_n")
     if baseline is None or model is None or baseline <= 0 or model < 0:
         raise ValueError("baseline_mae debe ser > 0 y model_mae debe ser >= 0")
+    if walkforward is not None and walkforward < 0:
+        raise ValueError("walkforward_mae debe ser >= 0")
+    if isinstance(test_n, bool) or (test_n is not None and
+                                    (not isinstance(test_n, int) or test_n <= 0)):
+        raise ValueError("test_n debe ser un entero positivo")
+
+    hashes = report.get("source_hashes", [])
+    if hashes is None:
+        hashes = []
+    if not isinstance(hashes, list) or not all(_valid_sha256(item) for item in hashes):
+        raise ValueError("source_hashes debe contener SHA-256 hexadecimales de 64 caracteres")
 
     improvement = 100.0 * (baseline - model) / baseline
     wf_improvement = (
@@ -74,27 +116,25 @@ def evaluate_experiment(report: Mapping[str, Any]) -> EvolutionDecision:
         if walkforward is not None and model > 0 else None
     )
 
-    reproduced = bool(report.get("reproduced", False))
-    hashes = report.get("source_hashes") or []
-    if reproduced and hashes and isinstance(test_n, int) and test_n > 0:
-        evidence_grade = "REPRODUCED_WITH_ARTIFACTS"
-        status = "REPRODUCED_IMPROVEMENT" if improvement > 0 else "NO_IMPROVEMENT"
-    elif improvement > 0:
+    reproduction_complete = _has_reproduction_metadata(report.get("reproduction"))
+    if improvement <= 0:
+        evidence_grade = (
+            "REPRODUCTION_METADATA_COMPLETE_PENDING_AUDIT"
+            if reproduction_complete else "REPORTED_RESULT"
+        )
+        status = "NO_IMPROVEMENT"
+        point = "HOLD_AND_REVIEW"
+        next_action = "Investigate the absence of improvement; do not advance to a pilot."
+    elif reproduction_complete:
+        evidence_grade = "REPRODUCTION_METADATA_COMPLETE_PENDING_AUDIT"
+        status = "IMPROVEMENT_REPORTED_REPRODUCTION_AUDIT_PENDING"
+        point = "INDEPENDENT_REPRODUCTION_AUDIT"
+        next_action = "Audit the reproduction protocol, reviewer independence and artifacts before any pilot."
+    else:
         evidence_grade = "REPORTED_RESULT_NOT_INDEPENDENTLY_REPRODUCED"
         status = "REPORTED_IMPROVEMENT_PENDING_REPRODUCTION"
-    else:
-        evidence_grade = "REPORTED_RESULT"
-        status = "NO_REPORTED_MAE_IMPROVEMENT"
-
-    if not report.get("source") or not report.get("period"):
-        point = "COMPLETE_SOURCE_AND_PERIOD_METADATA"
-        next_action = "Attach source, period, preprocessing, split definition, and artifact hashes."
-    elif not reproduced:
         point = "REPRODUCE_ON_EXISTING_ARTIFACTS"
-        next_action = "Re-run the existing pipeline on the saved artifacts; preserve current results."
-    else:
-        point = "TRANSFER_TO_SHADOW_PILOT"
-        next_action = "Run a bounded shadow-mode pilot and compare against the operational baseline."
+        next_action = "Re-run the existing pipeline independently on saved artifacts; preserve current results."
 
     metrics = {
         "baseline_mae": baseline,
@@ -112,9 +152,17 @@ def evaluate_experiment(report: Mapping[str, Any]) -> EvolutionDecision:
         "configurations_total": report.get("configurations_total"),
         "source_hashes_count": len(hashes),
     }
+    limitations = [
+        "Unreported evidence is not inferred.",
+        "Reported improvement is not proof of universal superiority.",
+        "Prediction quality does not by itself establish commercial value or investment returns.",
+        "Reproduction metadata completeness is not independent verification of artifacts or reviewer independence.",
+        "Triads and agents are not marked active unless execution logs prove it.",
+    ]
+    # The record fingerprint covers stable content only. Timestamp is metadata,
+    # not part of the content identity, so identical records hash identically.
     payload = {
-        "schema": "CEUNIA-CER-EVOLUTION-1.0",
-        "timestamp_utc": datetime.now(timezone.utc).isoformat(),
+        "schema": "CEUNIA-CER-EVOLUTION-1.1",
         "experiment_id": experiment_id,
         "domain": domain,
         "status": status,
@@ -122,15 +170,11 @@ def evaluate_experiment(report: Mapping[str, Any]) -> EvolutionDecision:
         "metrics": metrics,
         "evidence_grade": evidence_grade,
         "next_action": next_action,
-        "limitations": [
-            "Unreported evidence is not inferred.",
-            "Reported improvement is not proof of universal superiority.",
-            "Prediction quality does not by itself establish commercial value or investment returns.",
-            "Triads and agents are not marked active unless execution logs prove it.",
-        ],
+        "limitations": limitations,
         "source": report.get("source"),
         "period": report.get("period"),
         "source_hashes": hashes,
+        "reproduction": report.get("reproduction"),
         "notes": report.get("notes", []),
     }
     digest = sha256_json(payload)
@@ -142,16 +186,16 @@ def evaluate_experiment(report: Mapping[str, Any]) -> EvolutionDecision:
         metrics=metrics,
         evidence_grade=evidence_grade,
         next_action=next_action,
-        limitations=payload["limitations"],
+        limitations=limitations,
         record_hash=digest,
     )
 
 
 def build_cer_bundle(reports: list[Mapping[str, Any]]) -> dict[str, Any]:
-    """Build a combined CER bundle for NASA and finance reports."""
+    """Build a combined CER bundle for experiment reports."""
     decisions = [asdict(evaluate_experiment(item)) for item in reports]
     bundle = {
-        "schema": "CEUNIA-CER-BUNDLE-1.0",
+        "schema": "CEUNIA-CER-BUNDLE-1.1",
         "created_at_utc": datetime.now(timezone.utc).isoformat(),
         "experiment_count": len(decisions),
         "decisions": decisions,
