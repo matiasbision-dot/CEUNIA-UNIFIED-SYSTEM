@@ -1,0 +1,20 @@
+{
+  "mcp_server": "Serena",
+  "official_repository": "oraios/serena",
+  "launch": {
+    "command": "uvx",
+    "args": ["--from", "git+https://github.com/oraios/serena", "serena", "start-mcp-server"]
+  },
+  "ceunia_wrapper": {
+    "identity": true,
+    "permissions": true,
+    "tool_call_capture": true,
+    "input_hash": true,
+    "output_hash": true,
+    "evidence": true,
+    "verification": true,
+    "metaobservation": true
+  },
+  "status": "READY_FOR_REAL_MCP_CLIENT_EXECUTION",
+  "boundary": "The Serena server must be running in an MCP-capable client; this repository records the intended CEUNIA trust boundary and does not claim that this chat session has instantiated Serena."
+}

@@ -1,0 +1,25 @@
+{
+  "system": "CEUNIA TRUST HUB",
+  "version": "v0.1",
+  "record_type": "external_tool_execution",
+  "actor": {
+    "id": "DOT-CEUNIA-001",
+    "type": "human_ai_hybrid"
+  },
+  "operation": {
+    "tool": "GitHub",
+    "action": "repository_read",
+    "repository": "matiasbision-dot/CEUNIA-UNIFIED-SYSTEM",
+    "reference": "3112a0041b9eaa2933eb7b23678210d7491cd220"
+  },
+  "permission": "explicit_user_direction",
+  "evidence": {
+    "repository_verified": true,
+    "repository_owner": "matiasbision-dot",
+    "default_branch": "main",
+    "visibility": "public"
+  },
+  "verification": "verified",
+  "next_state": "external_tool_write_on_dedicated_branch",
+  "note": "This record demonstrates traceability of an external tool operation. It is not a claim that GitHub is itself an MCP server."
+}
